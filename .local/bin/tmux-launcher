@@ -6,16 +6,20 @@ tmux_sessionizer="$HOME/.dotfiles/.local/bin/tmux-sessionizer"
 # Check if inside a tmux session
 if [ -n "$TMUX" ]; then
     sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
-    session_to_switch=$(echo "$sessions" | fzf)
-    if [[ -n $session_to_switch ]]; then
-        tmux switch-client -t "$session_to_switch"
+    session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
+    
+    # If there's only one session, remain in the current session
+    if [[ $session_count -eq 1 ]]; then
+        echo "One session detected. Remaining in the current session."
+        exit 0
     else
-        session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
-        if [[ $session_count -eq 1 ]]; then
-            echo "Remaining in the current session."
+        echo "Multiple sessions detected. Selecting a session..."
+        session_to_switch=$(echo "$sessions" | fzf)
+        if [[ -n $session_to_switch ]]; then
+            tmux switch-client -t "$session_to_switch"
         else
-            echo "Running tmux-sessionizer..."
-            $tmux_sessionizer
+            echo "No session selected. Remaining in the current session."
+            exit 0
         fi
     fi
     exit 0
