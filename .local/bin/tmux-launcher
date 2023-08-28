@@ -1,16 +1,49 @@
 #!/usr/bin/env zsh
 
-# Get session count
-session_count=$(tmux list-sessions -F "#S" 2>/dev/null | wc -l | tr -d '[:space:]')
+# Path to tmux-sessionizer
+tmux_sessionizer="$HOME/.dotfiles/.local/bin/tmux-sessionizer"
 
-echo "Session count: $session_count"
+# Check if inside a tmux session
+if [ -n "$TMUX" ]; then
+    sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
+    session_to_switch=$(echo "$sessions" | fzf)
+    if [[ -n $session_to_switch ]]; then
+        tmux switch-client -t "$session_to_switch"
+    else
+        session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
+        if [[ $session_count -eq 1 ]]; then
+            echo "Remaining in the current session."
+        else
+            echo "Running tmux-sessionizer..."
+            $tmux_sessionizer
+        fi
+    fi
+    exit 0
+fi
+
+# For cases outside of tmux
+sessions=$(tmux list-sessions -F "#S" 2>/dev/null || echo "")
+if [[ -z "$sessions" ]]; then
+    session_count=0
+else
+    session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
+fi
 
 # Decision based on session count
 if [[ $session_count -eq 0 ]]; then
     echo "No sessions available. Running tmux-sessionizer..."
-    ~/.dotfiles/.local/bin/tmux-sessionizer
-else
-    echo "Sessions detected. Attaching to tmux..."
+    $tmux_sessionizer || echo "Exited without selecting a session." && exit 0
+elif [[ $session_count -eq 1 ]]; then
+    echo "One session detected. Attaching to tmux..."
     tmux attach
+else
+    echo "Multiple sessions detected. Selecting a session..."
+    session_to_attach=$(echo "$sessions" | fzf)
+    if [[ -n $session_to_attach ]]; then
+        tmux attach -t "$session_to_attach"
+    else
+        echo "No session selected. Exiting..."
+        exit 0
+    fi
 fi
 
