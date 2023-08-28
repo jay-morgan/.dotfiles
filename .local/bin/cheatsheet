@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-selected=`cat ~/.dotfiles/tmux/.chtsh-languages ~/.dotfiles/tmux/.chtsh-command | fzf`
+selected=`cat ~/.dotfiles/tmux/.cheatsheet-languages ~/.dotfiles/tmux/.cheatsheet-utilities | fzf`
 if [[ -z $selected ]]; then
     exit 0
 fi
 
 read -p "Enter Query: " query
 
-if grep -qs "$selected" ~/.dotfiles/tmux/.chtsh-languages; then
+if grep -qs "$selected" ~/.dotfiles/tmux/.cheatsheet-languages; then
     query=`echo $query | tr ' ' '+'`
     tmux new-window bash -c "echo \"curl cht.sh/$selected/$query/\" & curl cht.sh/$selected/$query & while [ : ]; do sleep 1; done"
 else
