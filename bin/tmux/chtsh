@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-selected=`cat ~/.chtsh-languages ~/.chtsh-command | fzf`
+selected=`cat ~/.dotfiles/tmux/.chtsh-languages ~/.dotfiles/tmux/.chtsh-command | fzf`
 if [[ -z $selected ]]; then
     exit 0
 fi
