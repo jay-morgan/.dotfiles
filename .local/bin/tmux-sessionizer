@@ -8,4 +8,11 @@ if ! tmux has-session -t "$session_name" 2> /dev/null; then
 	tmux new-session -s "$session_name" -c "$session" -d
 fi
 
-tmux switch-client -t "$session_name"
+if [ -z "$TMUX" ]; then
+    # Not inside a tmux session
+    tmux attach -t "$session_name"
+else
+    # Inside a tmux session
+    tmux switch-client -t "$session_name"
+fi
+

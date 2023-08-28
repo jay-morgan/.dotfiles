@@ -1,10 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
-# Check if there are any active tmux sessions
-if tmux list-sessions &> /dev/null; then
-    # Attach to the existing session
-    tmux attach
-else
-    # Run tmux sessionizer
+# Get session count
+session_count=$(tmux list-sessions -F "#S" 2>/dev/null | wc -l | tr -d '[:space:]')
+
+echo "Session count: $session_count"
+
+# Decision based on session count
+if [[ $session_count -eq 0 ]]; then
+    echo "No sessions available. Running tmux-sessionizer..."
     ~/.dotfiles/.local/bin/tmux-sessionizer
+else
+    echo "Sessions detected. Attaching to tmux..."
+    tmux attach
 fi
+
