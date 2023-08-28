@@ -1,18 +1,31 @@
 #!/usr/bin/env zsh
 
-session=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d | fzf)
+echo "Executing shell: $SHELL" >> /tmp/tmux-sessionizer.log
+echo "Starting tmux-sessionizer" >> /tmp/tmux-sessionizer.log
 
-session_name=$(basename "$session" | tr . _)
+session=$(find ~ ~/personal ~/work -mindepth 1 -maxdepth 1 -type d | /home/jaypop/.fzf/bin/fzf)
 
-if ! tmux has-session -t "$session_name" 2> /dev/null; then
-	tmux new-session -s "$session_name" -c "$session" -d
+# Check if a valid directory was selected
+if [ -z "$session" ]; then
+    echo "No directory selected. Exiting..." >> /tmp/tmux-sessionizer.log
+    exit 1
 fi
 
-if [ -z "$TMUX" ]; then
-    # Not inside a tmux session
-    tmux attach -t "$session_name"
-else
-    # Inside a tmux session
+echo "Selected directory: $session" >> /tmp/tmux-sessionizer.log
+
+session_name=$(basename "$session" | tr . _)
+echo "Session name: $session_name" >> /tmp/tmux-sessionizer.log
+
+if ! tmux has-session -t "$session_name" 2> /dev/null; then
+    tmux new-session -s "$session_name" -c "$session" -d
+fi
+
+# Check if inside a tmux session
+if [ -n "$TMUX" ]; then
+    # If inside a tmux session, switch client
     tmux switch-client -t "$session_name"
+else
+    # If not inside a tmux session, attach to the session
+    tmux attach-session -t "$session_name"
 fi
 

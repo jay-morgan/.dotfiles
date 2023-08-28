@@ -1,24 +1,28 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
+
+# Begin logging
+echo "tmux-launcher started" > /tmp/tmux-launcher.log
 
 # Path to tmux-sessionizer
 tmux_sessionizer="$HOME/.dotfiles/.local/bin/tmux-sessionizer"
 
 # Check if inside a tmux session
 if [ -n "$TMUX" ]; then
+    echo "Inside tmux session" >> /tmp/tmux-launcher.log
     sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
     session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
     
     # If there's only one session, remain in the current session
     if [[ $session_count -eq 1 ]]; then
-        echo "One session detected. Remaining in the current session."
+        echo "One session detected. Remaining in the current session." >> /tmp/tmux-launcher.log
         exit 0
     else
-        echo "Multiple sessions detected. Selecting a session..."
-        session_to_switch=$(echo "$sessions" | fzf)
+        echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
+        session_to_switch=$(echo "$sessions" | /home/jaypop/.fzf/bin/fzf)
         if [[ -n $session_to_switch ]]; then
             tmux switch-client -t "$session_to_switch"
         else
-            echo "No session selected. Remaining in the current session."
+            echo "No session selected. Remaining in the current session." >> /tmp/tmux-launcher.log
             exit 0
         fi
     fi
@@ -33,20 +37,22 @@ else
     session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
 fi
 
+echo "Session count: $session_count" >> /tmp/tmux-launcher.log
+
 # Decision based on session count
 if [[ $session_count -eq 0 ]]; then
-    echo "No sessions available. Running tmux-sessionizer..."
-    $tmux_sessionizer || echo "Exited without selecting a session." && exit 0
+    echo "No sessions available. Running tmux-sessionizer..." >> /tmp/tmux-launcher.log
+    $tmux_sessionizer
 elif [[ $session_count -eq 1 ]]; then
-    echo "One session detected. Attaching to tmux..."
+    echo "One session detected. Attaching to tmux..." >> /tmp/tmux-launcher.log
     tmux attach
 else
-    echo "Multiple sessions detected. Selecting a session..."
-    session_to_attach=$(echo "$sessions" | fzf)
+    echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
+    session_to_attach=$(echo "$sessions" | /home/jaypop/.fzf/bin/fzf)
     if [[ -n $session_to_attach ]]; then
         tmux attach -t "$session_to_attach"
     else
-        echo "No session selected. Exiting..."
+        echo "No session selected. Exiting..." >> /tmp/tmux-launcher.log
         exit 0
     fi
 fi
