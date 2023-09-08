@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Get the current pane, window, and session ID
+current_pane=$(tmux display-message -p '#P')
+current_window=$(tmux display-message -p '#I')
+current_session=$(tmux display-message -p '#S')
+
+# Check the number of panes in the current window
+pane_count=$(tmux list-panes -t $current_session:$current_window | wc -l)
+
+if [[ $pane_count -gt 1 ]]; then
+    # More than one pane, just kill the current pane
+    tmux kill-pane -t $current_pane
+    exit 0
+fi
+
+# Check the number of windows in the current session
+window_count=$(tmux list-windows -t $current_session | wc -l)
+
+if [[ $window_count -gt 1 ]]; then
+    # More than one window, kill the current window
+    tmux kill-window -t $current_window
+    exit 0
+fi
+
+# Check the number of sessions
+session_count=$(tmux list-sessions | wc -l)
+
+if [[ $session_count -gt 1 ]]; then
+    # Switch to the next session
+    tmux switch-client -n
+    # Now, kill the previous session
+    tmux kill-session -t $current_session
+else
+    # Only one session left, kill it
+    tmux kill-session -t $current_session
+fi

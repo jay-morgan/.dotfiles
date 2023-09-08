@@ -1,31 +1,38 @@
-#!/bin/zsh
-
-# Begin logging
-echo "tmux-launcher started" > /tmp/tmux-launcher.log
+#!/usr/bin/env zsh
 
 # Path to tmux-sessionizer
-tmux_sessionizer="$HOME/.dotfiles/.local/bin/tmux-sessionizer"
+tmux_sessionizer="$HOME/personal/.dotfiles/.local/bin/tmux-sessionizer"
+
+# Function to decide which session to attach to
+attach_to_session() {
+    sessions=$(tmux list-sessions -F "#S" 2>/dev/null || echo "")
+    if [[ -z "$sessions" ]]; then
+        session_count=0
+    else
+        session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
+    fi
+
+    echo "Session count: $session_count" >> /tmp/tmux-launcher.log
+
+    if [[ $session_count -eq 1 ]]; then
+        echo "One session detected. Attaching to tmux..." >> /tmp/tmux-launcher.log
+        tmux attach
+    else
+        echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
+        session_to_attach=$(echo "$sessions" | /home/jaypopdev/.fzf/bin/fzf)
+        if [[ -n $session_to_attach ]]; then
+            tmux attach -t "$session_to_attach"
+        else
+            echo "No session selected. Exiting..." >> /tmp/tmux-launcher.log
+            exit
+        fi
+    fi
+}
 
 # Check if inside a tmux session
 if [ -n "$TMUX" ]; then
     echo "Inside tmux session" >> /tmp/tmux-launcher.log
-    sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
-    session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
-    
-    # If there's only one session, remain in the current session
-    if [[ $session_count -eq 1 ]]; then
-        echo "One session detected. Remaining in the current session." >> /tmp/tmux-launcher.log
-        exit 0
-    else
-        echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
-        session_to_switch=$(echo "$sessions" | /home/jaypop/.fzf/bin/fzf)
-        if [[ -n $session_to_switch ]]; then
-            tmux switch-client -t "$session_to_switch"
-        else
-            echo "No session selected. Remaining in the current session." >> /tmp/tmux-launcher.log
-            exit 0
-        fi
-    fi
+    attach_to_session
     exit 0
 fi
 
@@ -37,23 +44,15 @@ else
     session_count=$(echo "$sessions" | wc -l | tr -d '[:space:]')
 fi
 
-echo "Session count: $session_count" >> /tmp/tmux-launcher.log
-
 # Decision based on session count
 if [[ $session_count -eq 0 ]]; then
-    echo "No sessions available. Running tmux-sessionizer..." >> /tmp/tmux-launcher.log
-    $tmux_sessionizer
-elif [[ $session_count -eq 1 ]]; then
-    echo "One session detected. Attaching to tmux..." >> /tmp/tmux-launcher.log
-    tmux attach
+    echo "No sessions available. Restoring tmux session using tmux-resurrect..." >> /tmp/tmux-launcher.log
+    tmux new-session -d
+    tmux send-keys "C-a" "C-r"
+    sleep 2 # Give tmux-resurrect some time to restore the session
+    attach_to_session
+    clear
 else
-    echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
-    session_to_attach=$(echo "$sessions" | /home/jaypop/.fzf/bin/fzf)
-    if [[ -n $session_to_attach ]]; then
-        tmux attach -t "$session_to_attach"
-    else
-        echo "No session selected. Exiting..." >> /tmp/tmux-launcher.log
-        exit 0
-    fi
+    attach_to_session
+    clear
 fi
-
