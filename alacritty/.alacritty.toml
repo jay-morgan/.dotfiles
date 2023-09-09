@@ -1,0 +1,77 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "None"
+padding = { x = 5, y = 5 }
+opacity = 0.7
+
+[mouse]
+hide_when_typing = true
+
+[cursor.style]
+shape = "Underline"
+blinking = "On"
+
+[selection]
+save_to_clipboard = true
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "UbuntuMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "UbuntuMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "UbuntuMono Nerd Font"
+style = "Italic"
+
+[font.bold_italic]
+family = "UbuntuMono Nerd Font"
+style = "Bold Italic"
+
+[colors.primary]
+background = "0x1d2021"
+foreground = "0xd5c4a1"
+
+[colors.cursor]
+text = "0x1d2021"
+cursor = "0xd5c4a1"
+
+[colors.vi_mode_cursor]
+text = "0x1d2021"
+cursor = "0xd5c4a1"
+
+[colors.normal]
+black = "0x1d2021"
+red = "0xfb4934"
+green = "0xb8bb26"
+yellow = "0xfabd2f"
+blue = "0x83a598"
+magenta = "0xd3869b"
+cyan = "0x8ec07c"
+white = "0xd5c4a1"
+
+[colors.bright]
+black = "0x665c54"
+red = "0xfe8019"
+green = "0x3c3836"
+yellow = "0x504945"
+blue = "0xbdae93"
+magenta = "0xebdbb2"
+cyan = "0xd65d0e"
+white = "0xfbf1c7"
+
+[shell]
+program = "/bin/zsh"
+args = ["-c", "zsh ~/personal/.dotfiles/.local/bin/tmux-launcher; zsh"]
+
