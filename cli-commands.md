@@ -1,4 +1,4 @@
-###COMMAND LINE
+### COMMAND LINE
 
 C - b - open this document!
 C - i - open chtsh script
@@ -14,6 +14,8 @@ man (app) - manual for app, eg man tmux - example: man git worktree
 cht.sh - cheat sheet cli
 /tmp/ - error log dir - use cat for items in here. use bash to help log debug info
 
+------------------------------------------------------------------------------------
+
 ### TMUX (all have ctrl + a prefix, unless stated otherwise)
 
 shift + d - look for a todo.md in current dir, create one if not. Make notes where you are
@@ -27,9 +29,6 @@ PREFIX + w - OPEN SESSION/WINDOW NAVIGATION
 PREFIX + c - new window
 PREFIX + p - previous window
 PREFIX + n - next window
-
-
-##
 
 man tmux - show manual (man man - shows how to use manual)
 
@@ -74,8 +73,29 @@ tl 	tmux list-sessions 	Displays a list of running tmux sessions
 tksv 	tmux kill-server 	Terminate all running tmux sessions
 tkss 	tmux kill-session -t 	Terminate named running tmux session
 
-##MANUAL SESSION MANAGEMENT (currently auto saves every 15mins)
+## MANUAL SESSION MANAGEMENT (currently auto saves every 15mins)
 
 Save: Press Ctrl-b (or your custom prefix key), then while holding Ctrl, press s.
-
 Restore: Press Ctrl-b (or your custom prefix key), then while holding Ctrl, press r.!
+
+--------------------------------------------------------------------------------------------
+
+### NEOVIM
+
+A file - not what we edit - we work on buffers, which can then be written to the file
+Buffers - represent a change to the file in memory. 
+Window - a view into the buffer. These can close and the buffer can remain in memory
+Tabs - another viewport, can be many windows and splits per tab
+Splits - splits of a viewport into n sections
+(we cam)
+
+:h {name} - get help with whatever topic in split view, eg :h buffer
+ -> :q to close help file
+
+:new - new split (horizontal)
+:vnew - new split (vertical)
+
+MOTION - anything that moves your cursor   
+
+
+

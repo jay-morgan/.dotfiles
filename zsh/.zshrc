@@ -5,10 +5,10 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # tmux session lauching (also run on alacritty open)
-bindkey -s ^l "~.local/bin/tmux-launcher\n"
+bindkey -s ^l "~/.local/bin/tmux-launcher\n"
 
 # tmux session starting
-bindkey -s ^f "~.local/bin/tmux-sessionizer\n"
+bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
