@@ -10,7 +10,7 @@ opacity = 0.7
 hide_when_typing = true
 
 [cursor.style]
-shape = "Underline"
+shape = "Block"
 blinking = "On"
 
 [selection]
@@ -24,19 +24,19 @@ multiplier = 3
 size = 12.0
 
 [font.normal]
-family = "UbuntuMono Nerd Font"
+family = "Berkeley Mono"
 style = "Regular"
 
 [font.bold]
-family = "UbuntuMono Nerd Font"
+family = "Berkeley Mono"
 style = "Bold"
 
 [font.italic]
-family = "UbuntuMono Nerd Font"
+family = "Berkeley Mono"
 style = "Italic"
 
 [font.bold_italic]
-family = "UbuntuMono Nerd Font"
+family = "Berkeley Mono"
 style = "Bold Italic"
 
 [colors.primary]

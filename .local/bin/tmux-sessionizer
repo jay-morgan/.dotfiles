@@ -3,7 +3,7 @@
 echo "Executing shell: $SHELL" >> /tmp/tmux-sessionizer.log
 echo "Starting tmux-sessionizer" >> /tmp/tmux-sessionizer.log
 
-session=$(find ~/personal ~/work -mindepth 1 -maxdepth 1 -type d | /home/jaypopdev/.fzf/bin/fzf)
+session=$(find ~/personal ~/work ~/work/synthesis6-rest-api.git -mindepth 0 -maxdepth 2 -type d | /home/jaypopdev/.fzf/bin/fzf)
 
 # Check if a valid directory was selected
 if [ -z "$session" ]; then
