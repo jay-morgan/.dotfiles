@@ -13,16 +13,19 @@ bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 
+# open nvim commands 
+bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
 #ZSH_THEME="af-magic"
-#ZSH_THEME="robbyrussell"
-
+ZSH_THEME="robbyrussell"
+#ZSH_THEME="theunraveler"
 #ZSH_THEME="eastwood"
-ZSH_THEME="simple"
+#ZSH_THEME="simple"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -141,3 +144,6 @@ export NVM_DIR="$HOME/.nvm"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# opam configuration
+[[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
