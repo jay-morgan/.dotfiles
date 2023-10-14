@@ -1,6 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -9,6 +13,9 @@ bindkey -s ^l "~/.local/bin/tmux-launcher\n"
 
 # tmux session starting
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
+
+# use chtsh
+bindkey -s ^h "~/.local/bin/cheatsheet\n"
 
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"

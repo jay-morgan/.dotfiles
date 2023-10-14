@@ -112,15 +112,6 @@ require('lazy').setup({
   --    end,
   --  },
 
-  -- @TODO move this
-  {
-    'rose-pine/neovim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'rose-pine'
-    end,
-  },
-
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -182,7 +173,7 @@ require('lazy').setup({
 
   --  automatically add plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --  see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  { import = 'custom.plugins' },
+  { import = 'custom' },
 }, {})
 
 -- [[ Setting options ]]
@@ -422,8 +413,8 @@ require('which-key').register({
 --  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
-  -- ocamllsp = {},
-  -- gopls = {},
+  ocamllsp = {},
+  gopls = {},
   -- pyright = {},
   rust_analyzer = {},
   tsserver = {},
