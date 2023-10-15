@@ -118,7 +118,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
@@ -178,6 +178,21 @@ require('lazy').setup({
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
+
+-- START CUSTOM OPTIONS --
+vim.opt.scrolloff = 9
+vim.opt.relativenumber = true
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smarttab = true
+vim.opt.autoindent = true
+-- Clear the background color for Normal mode
+vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+-- Set the colorcolumn to 120
+vim.cmd("set colorcolumn=120")
+-- Define a custom mapping for "n <leader>pv" to ":Vex<CR>" with noremap = true
+vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
+--END CUSTOM OPTIONS--
 
 -- Set highlight on search
 vim.o.hlsearch = false
