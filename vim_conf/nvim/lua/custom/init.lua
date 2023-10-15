@@ -12,4 +12,7 @@ return {
 			vim.cmd([[colorscheme rose-pine]])
 		end,
 	},
+	{
+		"github/copilot.vim",
+	},
 }
