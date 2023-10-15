@@ -194,6 +194,43 @@ vim.cmd("set colorcolumn=120")
 vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
 -- Github Copilot
 vim.g.copilot_assume_mapped = true
+-- harpoon
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file, { desc = "Add file to harpoon marks" })
+vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
+-- cell automation
+vim.keymap.set("n", "<leader>cc", "<cmd>CellularAutomaton game_of_life<CR>")
+vim.keymap.set("n", "<leader>vv", "<cmd>CellularAutomaton make_it_rain<CR>")
+-- set up git worktree in telescope
+require("telescope").load_extension("git_worktree")
+-- -- GIT WORKTREE
+-- Keybinding to -create a worktree
+vim.api.nvim_set_keymap('n', '<leader>gc', [[:lua require("git-worktree").create_worktree()<CR>]],
+  { noremap = true, silent = true })
+-- Keybinding to switch to an existing worktree
+vim.api.nvim_set_keymap('n', '<leader>gs', [[:lua require("git-worktree").switch_worktree()<CR>]],
+  { noremap = true, silent = true })
+-- Keybinding to delete an existing worktree
+vim.api.nvim_set_keymap('n', '<leader>gd', [[:lua require("git-worktree").delete_worktree()<CR>]],
+  { noremap = true, silent = true })
+
+
+
+
+
+
+-- TESTING for fineline
+--vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FloatermNew<CR>', { noremap = true })
+
+
+
+
 --END CUSTOM OPTIONS--
 
 -- Set highlight on search

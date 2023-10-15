@@ -15,6 +15,14 @@ cht.sh - cheat sheet cli
 /tmp/ - error log dir - use cat for items in here. use bash to help log debug info
 
 ------------------------------------------------------------------------------------
+### GITHUB COPILOT
+
+<Tab> Accept current suggestion.
+<C-]> Dismiss the current suggestion. (ctrl)
+<M-]> Cycle to the next suggestion, if one is available. (alt)
+<M-[> Cycle to the previous suggestion. (alt)
+<M-\> Explicitly request a suggestion, even if Copilot is disabled. (alt)
+:Copilot disable 
 
 ### TMUX (all have ctrl + a prefix, unless stated otherwise)
 
