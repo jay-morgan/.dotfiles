@@ -189,7 +189,7 @@ vim.opt.autoindent = true
 -- Clear the background color for Normal mode
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 -- Clear the floating window border
---vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
+vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
 vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
 -- Set the colorcolumn to 120
 vim.cmd("set colorcolumn=120")
@@ -332,7 +332,7 @@ vim.defer_fn(function()
       'ocaml' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
 
     highlight = { enable = true },
     indent = { enable = true },
