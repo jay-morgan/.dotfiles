@@ -192,6 +192,8 @@ vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
 vim.cmd("set colorcolumn=120")
 -- Define a custom mapping for "n <leader>pv" to ":Vex<CR>" with noremap = true
 vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
+-- Github Copilot
+vim.g.copilot_assume_mapped = true
 --END CUSTOM OPTIONS--
 
 -- Set highlight on search
