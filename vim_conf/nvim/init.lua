@@ -227,6 +227,9 @@ vim.api.nvim_set_keymap('n', '<leader>gd', [[:lua require("git-worktree").delete
 -- TESTING for fineline
 --vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FloatermNew<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<CR>',
+  '<cmd>:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=ocamldeez --position=topleft --autoclose=2<CR>',
+  { noremap = true })
 
 
 
