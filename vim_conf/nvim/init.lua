@@ -188,6 +188,9 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 -- Clear the background color for Normal mode
 vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+-- Clear the floating window border
+--vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
+vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
 -- Set the colorcolumn to 120
 vim.cmd("set colorcolumn=120")
 -- Define a custom mapping for "n <leader>pv" to ":Vex<CR>" with noremap = true
@@ -197,7 +200,7 @@ vim.g.copilot_assume_mapped = true
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-vim.keymap.set('n', '<leader>a', require('harpoon.mark').add_file, { desc = "Add file to harpoon marks" })
+vim.keymap.set('n', '<leader>a', mark.add_file, { desc = "Add file to harpoon marks" })
 vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
@@ -218,22 +221,12 @@ vim.api.nvim_set_keymap('n', '<leader>gs', [[:lua require("git-worktree").switch
 -- Keybinding to delete an existing worktree
 vim.api.nvim_set_keymap('n', '<leader>gd', [[:lua require("git-worktree").delete_worktree()<CR>]],
   { noremap = true, silent = true })
-
-
-
-
-
-
--- TESTING for fineline
---vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FineCmdline<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<CR>', '<cmd>FloatermNew<CR>', { noremap = true })
+-- keybining for FineCmdline
+vim.api.nvim_set_keymap('n', '<leader><CR>', '<cmd>FineCmdline<CR>', { noremap = true })
+-- add a keybinding to open a terminal using float_term
 vim.api.nvim_set_keymap('n', '<CR>',
-  '<cmd>:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=ocamldeez --position=topleft --autoclose=2<CR>',
+  '<cmd>:FloatermNew --height=0.3 --width=0.5 --wintype=float --name=term --position=topright --autoclose=2<CR>',
   { noremap = true })
-
-
-
-
 --END CUSTOM OPTIONS--
 
 -- Set highlight on search

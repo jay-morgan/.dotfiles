@@ -31,7 +31,26 @@ return {
 		'VonHeikemen/fine-cmdline.nvim',
 		dependencies = {
 			{ 'MunifTanjim/nui.nvim', lazy = true },
-		}
+		},
+		config = function()
+			require('fine-cmdline').setup({
+				popup = {
+					position = {
+						row = '50%',
+						col = '50%',
+					},
+					size = {
+						width = '50%',
+					},
+					border = {
+						style = 'rounded',
+					},
+					win_options = {
+						winhighlight = 'Normal:Normal,FloatBorder:FloatBorder',
+					},
+				},
+			})
+		end,
 
 	},
 	{ 'voldikss/vim-floaterm' },
