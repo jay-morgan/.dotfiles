@@ -180,6 +180,15 @@ require('lazy').setup({
 -- See `:help vim.o`
 
 -- START CUSTOM OPTIONS --
+-- Open help window in a vertical split to the right.
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = vim.api.nvim_create_augroup("help_window_right", {}),
+  pattern = { "*.txt" },
+  callback = function()
+    if vim.o.filetype == 'help' then vim.cmd.wincmd("L") end
+  end
+})
+--options
 vim.opt.scrolloff = 10
 vim.opt.relativenumber = true
 vim.opt.softtabstop = 4
