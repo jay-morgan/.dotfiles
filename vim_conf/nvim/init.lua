@@ -180,7 +180,7 @@ require('lazy').setup({
 -- See `:help vim.o`
 
 -- START CUSTOM OPTIONS --
-vim.opt.scrolloff = 9
+vim.opt.scrolloff = 10
 vim.opt.relativenumber = true
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -193,14 +193,45 @@ vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
 vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
 -- Set the colorcolumn to 120
 vim.cmd("set colorcolumn=120")
--- Define a custom mapping for "n <leader>pv" to ":Vex<CR>" with noremap = true
-vim.api.nvim_set_keymap('n', '<leader>pv', ':Vex<CR>', { noremap = true })
+-- open file_browser with the path of the current buffer
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>fb",
+  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+  { noremap = true }
+)
+-- Set the background and border of the file browser to be transparent
+vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
+
+-- Customize the file preview border
+vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
+
+-- Customize the background of the selected line
+vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
+
+-- Customize the background when inputting text
+vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
+
+-- Customize the background of the input field
+vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
+
+-- Replace Netrw with Telescope for file browsing
+vim.cmd([[
+  augroup TelescopeSetup
+    autocmd!
+    autocmd FileType netrw :Telescope file_browser
+  augroup END
+]])
+
 -- Github Copilot
 vim.g.copilot_assume_mapped = true
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-vim.keymap.set('n', '<leader>a', mark.add_file, { desc = "Add file to harpoon marks" })
+vim.keymap.set('n', '<C-a>', mark.add_file, { desc = "Add file to harpoon marks" })
 vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
@@ -211,6 +242,7 @@ vim.keymap.set("n", "<leader>cc", "<cmd>CellularAutomaton game_of_life<CR>")
 vim.keymap.set("n", "<leader>vv", "<cmd>CellularAutomaton make_it_rain<CR>")
 -- set up git worktree in telescope
 require("telescope").load_extension("git_worktree")
+require("telescope").load_extension("file_browser")
 -- -- GIT WORKTREE
 -- Keybinding to -create a worktree
 vim.api.nvim_set_keymap('n', '<leader>gc', [[:lua require("git-worktree").create_worktree()<CR>]],
@@ -310,7 +342,7 @@ vim.keymap.set('n', '<leader>/', function()
   -- Pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
-    previewer = false,
+    previewer = true,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
 

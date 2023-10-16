@@ -26,6 +26,32 @@ return {
 			})
 		end,
 	},
+	{
+		'nvim-telescope/telescope-file-browser.nvim',
+		config = function()
+			require('telescope').setup({
+				extensions = {
+					file_browser = {
+						theme = "ivy",
+						layout_config = {
+							width = 100, -- 100% width
+							height = 100, -- 100% height
+						},
+						-- use instead of netrw
+						hijack_netrw = true,
+						mappings = {
+							["i"] = {
+								-- your custom insert mode mappings
+							},
+							["n"] = {
+								-- your custom normal mode mappings
+							},
+						},
+					},
+				},
+			})
+		end,
+	},
 	{ 'ThePrimeagen/git-worktree.nvim' },
 	{
 		'VonHeikemen/fine-cmdline.nvim',
