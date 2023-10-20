@@ -103,22 +103,13 @@ require('lazy').setup({
     },
   },
 
-  --  {
-  --    -- Theme inspired by Atom
-  --    'navarasu/onedark.nvim',
-  --    priority = 1000,
-  --    config = function()
-  --      vim.cmd.colorscheme 'onedark'
-  --    end,
-  --  },
-
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = true,
+        icons_enabled = false,
         theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
@@ -179,7 +170,8 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
--- START CUSTOM OPTIONS --
+-- START CUSTOM OPTIONS -
+
 -- Open help window in a vertical split to the right.
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("help_window_right", {}),
@@ -188,6 +180,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     if vim.o.filetype == 'help' then vim.cmd.wincmd("L") end
   end
 })
+
 --options
 vim.opt.scrolloff = 10
 vim.opt.relativenumber = true
@@ -195,37 +188,10 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.autoindent = true
--- Clear the background color for Normal mode
-vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
--- Clear the floating window border
-vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
-vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
--- Set the colorcolumn to 120
 vim.cmd("set colorcolumn=120")
+
 -- open file_browser with the path of the current buffer
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>fb",
-  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true }
-)
--- Set the background and border of the file browser to be transparent
-vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
-vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
-
--- Customize the file preview border
-vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
-
--- Customize the background of the selected line
-vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
-
--- Customize the background when inputting text
-vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
-
--- Customize the background of the input field
-vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
-vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
+require("telescope").load_extension("file_browser")
 
 -- Replace Netrw with Telescope for file browsing
 vim.cmd([[
@@ -235,8 +201,16 @@ vim.cmd([[
   augroup END
 ]])
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>fb",
+  ":Telescope file_browser path=%:p:h select_buffer=true theme=get_ivy<CR>",
+  { noremap = true }
+)
+
 -- Github Copilot
 vim.g.copilot_assume_mapped = true
+
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
@@ -246,32 +220,45 @@ vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
--- cell automation
-vim.keymap.set("n", "<leader>cc", "<cmd>CellularAutomaton game_of_life<CR>")
-vim.keymap.set("n", "<leader>vv", "<cmd>CellularAutomaton make_it_rain<CR>")
+
+-- GIT WORKTREE @TODO: test
 -- set up git worktree in telescope
-require("telescope").load_extension("git_worktree")
-require("telescope").load_extension("file_browser")
--- -- GIT WORKTREE
+--require("telescope").load_extension("git_worktree")
 -- Keybinding to -create a worktree
-vim.api.nvim_set_keymap('n', '<leader>gc', [[:lua require("git-worktree").create_worktree()<CR>]],
-  { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>gc', [[:lua require("git-worktree").create_worktree()<CR>]],
+--  { noremap = true, silent = true })
 -- Keybinding to switch to an existing worktree
-vim.api.nvim_set_keymap('n', '<leader>gs', [[:lua require("git-worktree").switch_worktree()<CR>]],
-  { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>gs', [[:lua require("git-worktree").switch_worktree()<CR>]],
+--  { noremap = true, silent = true })
 -- Keybinding to delete an existing worktree
-vim.api.nvim_set_keymap('n', '<leader>gd', [[:lua require("git-worktree").delete_worktree()<CR>]],
-  { noremap = true, silent = true })
--- keybining for FineCmdline
-vim.api.nvim_set_keymap('n', '<leader><CR>', '<cmd>FineCmdline<CR>', { noremap = true })
--- add a keybinding to open a terminal using float_term
-vim.api.nvim_set_keymap('n', '<CR>',
-  '<cmd>:FloatermNew --height=0.3 --width=0.5 --wintype=float --name=term --position=topright --autoclose=2<CR>',
-  { noremap = true })
+--vim.api.nvim_set_keymap('n', '<leader>gd', [[:lua require("git-worktree").delete_worktree()<CR>]],
+-- { noremap = true, silent = true })
+
+-- Clear the background color for Normal mode
+-- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+-- Clear the floating window border
+-- vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
+-- vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
+-- Set the colorcolumn to 120
+-- open file_browser with the path of the current buffer
+-- Set the background and border of the file browser to be transparent
+-- vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
+-- vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
+-- vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
+-- Customize the file preview border
+-- vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
+-- Customize the background of the selected line
+-- vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
+-- Customize the background when inputting text
+-- vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
+-- Customize the background of the input field
+-- vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
+-- vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
+
 --END CUSTOM OPTIONS--
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -350,10 +337,19 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>/', function()
   -- Pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
+    --winblend = 10,
     previewer = true,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
+
+-- custom func to search and exlude .html files
+vim.keymap.set('n', '<leader>sr', function()
+  require('telescope.builtin').find_files({
+    prompt_title = '[S]earch [R]esume',
+    find_command = { 'rg', '--files', '--hidden', '--type', 'not:text', '--ignore-file', '!.html' },
+    hidden = true,
+  })
+end)
 
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
