@@ -4,8 +4,7 @@ TERM = "xterm-256color"
 [window]
 decorations = "None"
 padding = { x = 2, y = 2 }
-#opacity = 0.9
-opacity = 1
+opacity = 0.9
 dynamic_padding = true
 
 [mouse]
@@ -26,19 +25,19 @@ multiplier = 3
 size = 12.0
 
 [font.normal]
-family = "Berkeley Mono"
+family = "BerkeleyMono Nerd Font Mono"
 style = "Regular"
 
 [font.bold]
-family = "Berkeley Mono"
+family = "BerkeleyMono Nerd Font Mono"
 style = "Bold"
 
 [font.italic]
-family = "Berkeley Mono"
+family = "BerkeleyMono Nerd Font Mono"
 style = "Italic"
 
 [font.bold_italic]
-family = "Berkeley Mono"
+family = "BerkeleyMono Nerd Font Mono"
 style = "Bold Italic"
 
 #[colors.primary]
