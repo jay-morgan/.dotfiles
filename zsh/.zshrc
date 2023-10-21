@@ -90,7 +90,13 @@ ZSH_THEME="robbyrussell"
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # add repo for zsh syntax plugin (requires repo and linked path below: https://github.com/zsh-users/zsh-syntax-highlighting)
-source ~/.oh-my-zsh/custom/syntax-highlighting/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+
+### TEMPORARIALLY REMOVED ###
+#source ~/.oh-my-zsh/custom/syntax-highlighting/zsh-syntax-highlighting/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
+
+
+
+
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -107,7 +113,7 @@ plugins=(
 	zsh-autosuggestions
 	zsh-interactive-cd
 	colored-man-pages
-	zsh-syntax-highlighting
+#	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
