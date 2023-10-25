@@ -1,7 +1,8 @@
--- @TODO FIX UNIVERSAL TRANSPARENCY:
--- @TODO IMLPLEMENT FIT WORKTREES AND PLUGINS
--- @TODO MOVE ALL CUSTOM CODE OUT OF THIS FILE - see init and after prime vid
+-- @TODO change all to rosepine moon: colorcolumn
 -- @TODO FIX CHSH
+-- @TODO IMLPLEMENT GIT WORKTREES AND PLUGIN
+-- @TODO VIM DADBOD AND DABOD UI - OR JETBRAINS
+-- @TODO MOVE ALL CUSTOM CODE OUT OF THIS FILE - see init and after prime vid
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
@@ -116,7 +117,6 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
       },
@@ -194,7 +194,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.autoindent = true
-vim.cmd("set colorcolumn=120")
+vim.cmd("set colorcolumn=100")
 
 -- open file_browser with the path of the current buffer
 require("telescope").load_extension("file_browser")
@@ -226,12 +226,6 @@ vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
--- Clear the background color for Normal mode
--- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
--- Clear the floating window border
-vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
-vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
--- open file_browser with the path of the current buffer
 -- Set the background and border of the file browser to be transparent
 vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
 vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
@@ -245,6 +239,13 @@ vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
 -- Customize the background of the input field
 vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
 vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
+-- disable colorcolumn for help
+vim.cmd([[
+    augroup DisableColorColumnForHelp
+        autocmd!
+        autocmd FileType help set colorcolumn=
+    augroup END
+]])
 -- GIT WORKTREE @TODO: test
 -- set up git worktree in telescope
 --require("telescope").load_extension("git_worktree")

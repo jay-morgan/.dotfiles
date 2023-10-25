@@ -7,7 +7,7 @@ return {
 				--- @usage 'auto'|'main'|'moon'|'dawn'
 				variant = 'auto',
 				--- @usage 'main'|'moon'|'dawn'
-				dark_variant = 'main',
+				dark_variant = 'moon',
 				bold_vert_split = false,
 				dim_nc_background = true,
 				disable_background = true,
@@ -45,10 +45,11 @@ return {
 				-- Change specific vim highlight groups
 				-- https://github.com/rose-pine/neovim/wiki/Recipes
 				highlight_groups = {
-					ColorColumn = { bg = 'surface' },
-
+					-- ColorColumn = { bg = 'muted', blend = 10 },
+					-- 6E6A86 (comments, line numbers)
+					ColorColumn = { fg = 'muted', bg = 'muted' },
 					-- Blend colours against the "base" background
-					CursorLine = { bg = 'foam', blend = 10 },
+					CursorLine = { bg = 'foam' },
 					StatusLine = { fg = 'love', bg = 'love', blend = 10 },
 
 					-- By default each group adds to the existing config.
@@ -88,6 +89,7 @@ return {
 							height = 100,
 						},
 						hijack_netrw = true,
+						hidden = true,
 						mappings = {
 							["i"] = {
 								-- custom insert mode mappings
@@ -100,9 +102,9 @@ return {
 				},
 			})
 		end,
-	}
+	},
 	-- { 'ThePrimeagen/git-worktree.nvim' },
-	-- { 'xiyaowong/transparent.nvim' },
+	{ 'xiyaowong/transparent.nvim' },
 	--{
 	--'kristijanhusak/vim-dadbod-ui',
 	--dependencies = {
