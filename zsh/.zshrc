@@ -14,9 +14,6 @@ bindkey -s ^l "~/.local/bin/tmux-launcher\n"
 # tmux session starting
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 
-# use chtsh
-bindkey -s ^h "~/.local/bin/cheatsheet\n"
-
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 

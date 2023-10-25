@@ -103,8 +103,16 @@ return {
 			})
 		end,
 	},
+	{
+		'startup-nvim/startup.nvim',
+		config = function()
+			require('startup').setup({
+				theme = "startify",
+			})
+		end
+	},
+	{ 'xiyaowong/transparent.nvim' }
 	-- { 'ThePrimeagen/git-worktree.nvim' },
-	{ 'xiyaowong/transparent.nvim' },
 	--{
 	--'kristijanhusak/vim-dadbod-ui',
 	--dependencies = {
