@@ -1,4 +1,3 @@
--- @TODO change all to rosepine moon: colorcolumn
 -- @TODO FIX CHSH
 -- @TODO IMLPLEMENT GIT WORKTREES AND PLUGIN
 -- @TODO VIM DADBOD AND DABOD UI - OR JETBRAINS
@@ -234,11 +233,13 @@ vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
 vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
 -- Customize the background of the selected line
 vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopeSelectionCaret guibg=NONE ctermbg=NONE')
 -- Customize the background when inputting text
 vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
 -- Customize the background of the input field
 vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
 vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
+
 -- disable colorcolumn for help
 vim.cmd([[
     augroup DisableColorColumnForHelp
