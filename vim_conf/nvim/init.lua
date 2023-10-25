@@ -193,7 +193,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.autoindent = true
-vim.cmd("set colorcolumn=100")
+vim.cmd("set colorcolumn=120")
 
 -- open file_browser with the path of the current buffer
 require("telescope").load_extension("file_browser")
