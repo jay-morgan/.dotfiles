@@ -1,3 +1,8 @@
+-- @TODO FIX UNIVERSAL TRANSPARENCY:
+-- @TODO IMLPLEMENT FIT WORKTREES AND PLUGINS
+-- @TODO MOVE ALL CUSTOM CODE OUT OF THIS FILE - see init and after prime vid
+-- @TODO FIX CHSH
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -85,7 +90,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
+          { buffer = bufnr, desc = 'Preview git hunk' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -117,14 +123,14 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    main = "ibl",
-    opts = {},
-  },
+  --{
+  --  -- Add indentation guides even on blank lines
+  --  'lukas-reineke/indent-blankline.nvim',
+  --  -- Enable `lukas-reineke/indent-blankline.nvim`
+  --  -- See `:help indent_blankline.txt`
+  --  main = "ibl",
+  --  opts = {},
+  --},
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
@@ -215,12 +221,30 @@ vim.g.copilot_assume_mapped = true
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
 vim.keymap.set('n', '<C-a>', mark.add_file, { desc = "Add file to harpoon marks" })
-vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+vim.keymap.set("n", "<C-h>", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
-
+-- Clear the background color for Normal mode
+-- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
+-- Clear the floating window border
+vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
+vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
+-- open file_browser with the path of the current buffer
+-- Set the background and border of the file browser to be transparent
+vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
+-- Customize the file preview border
+vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
+-- Customize the background of the selected line
+vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
+-- Customize the background when inputting text
+vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
+-- Customize the background of the input field
+vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
+vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
 -- GIT WORKTREE @TODO: test
 -- set up git worktree in telescope
 --require("telescope").load_extension("git_worktree")
@@ -233,27 +257,6 @@ vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
 -- Keybinding to delete an existing worktree
 --vim.api.nvim_set_keymap('n', '<leader>wd', [[:lua require("git-worktree").delete_worktree()<CR>]],
 -- { noremap = true, silent = true })
-
--- Clear the background color for Normal mode
--- vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
--- Clear the floating window border
--- vim.cmd("hi NormalFloat guibg=NONE ctermbg=NONE")
--- vim.cmd("hi FloatBorder guibg=NONE ctermbg=NONE")
--- Set the colorcolumn to 120
--- open file_browser with the path of the current buffer
--- Set the background and border of the file browser to be transparent
--- vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
--- vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')
--- vim.cmd('highlight TelescopeResultsBorder guibg=NONE ctermbg=NONE')
--- Customize the file preview border
--- vim.cmd('highlight TelescopePreviewBorder guibg=NONE ctermbg=NONE')
--- Customize the background of the selected line
--- vim.cmd('highlight TelescopeSelection guibg=NONE ctermbg=NONE')
--- Customize the background when inputting text
--- vim.cmd('highlight TelescopeMatching guibg=NONE ctermbg=NONE')
--- Customize the background of the input field
--- vim.cmd('highlight TelescopePrompt guibg=NONE ctermbg=NONE')
--- vim.cmd('highlight TelescopePromptNormal guibg=NONE ctermbg=NONE')
 
 --END CUSTOM OPTIONS--
 
