@@ -157,3 +157,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # opam configuration
 [[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# Turso
+export PATH="/home/jaypopdev/.turso:$PATH"

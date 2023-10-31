@@ -1,5 +1,7 @@
 -- @TODO IMLPLEMENT GIT WORKTREES AND PLUGIN
+-- @TODO PASSWORD MANAGER
 -- @TODO VIM DADBOD AND DABOD UI - OR JETBRAINS
+
 -- @TODO MOVE ALL CUSTOM CODE OUT OF THIS FILE - see init and after prime vid
 
 -- Set <space> as the leader key
@@ -218,8 +220,8 @@ vim.g.copilot_assume_mapped = true
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-vim.keymap.set('n', '<C-a>', mark.add_file, { desc = "Add file to harpoon marks" })
-vim.keymap.set("n", "<C-h>", ui.toggle_quick_menu)
+vim.keymap.set("n", "<C-h>", mark.add_file, { desc = "Add file to harpoon marks" })
+vim.keymap.set("n", "<leader>h", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
