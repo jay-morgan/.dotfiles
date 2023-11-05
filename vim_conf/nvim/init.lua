@@ -1,5 +1,5 @@
+-- @TODO SORT TREE PLUGIN
 -- @TODO IMLPLEMENT GIT WORKTREES AND PLUGIN
--- @TODO PASSWORD MANAGER
 -- @TODO VIM DADBOD AND DABOD UI - OR JETBRAINS
 
 -- @TODO MOVE ALL CUSTOM CODE OUT OF THIS FILE - see init and after prime vid
@@ -194,7 +194,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smarttab = true
 vim.opt.autoindent = true
-vim.cmd("set colorcolumn=120")
+--vim.cmd("set colorcolumn=120")
 
 -- open file_browser with the path of the current buffer
 require("telescope").load_extension("file_browser")
@@ -226,6 +226,59 @@ vim.keymap.set("n", "<C-1>", function() ui.nav_file(1) end)
 vim.keymap.set("n", "<C-2>", function() ui.nav_file(2) end)
 vim.keymap.set("n", "<C-3>", function() ui.nav_file(3) end)
 vim.keymap.set("n", "<C-4>", function() ui.nav_file(4) end)
+
+-- List of Gitsigns highlight groups to customize
+local gitsigns_highlight_groups = {
+  'GitSignsAdd',
+  'GitSignsChange',
+  'GitSignsDelete',
+  'GitSignsChangedelete',
+  'GitSignsTopdelete',
+  'GitSignsUntracked',
+  'GitSignsAddNr',
+  'GitSignsChangeNr',
+  'GitSignsDeleteNr',
+  'GitSignsChangedeleteNr',
+  'GitSignsTopdeleteNr',
+  'GitSignsUntrackedNr',
+  'GitSignsAddLn',
+  'GitSignsChangeLn',
+  'GitSignsChangedeleteLn',
+  'GitSignsUntrackedLn',
+  'GitSignsStagedAdd',
+  'GitSignsStagedChange',
+  'GitSignsStagedDelete',
+  'GitSignsStagedChangedelete',
+  'GitSignsStagedTopdelete',
+  'GitSignsStagedAddNr',
+  'GitSignsStagedChangeNr',
+  'GitSignsStagedDeleteNr',
+  'GitSignsStagedChangedeleteNr',
+  'GitSignsStagedTopdeleteNr',
+  'GitSignsStagedAddLn',
+  'GitSignsStagedChangeLn',
+  'GitSignsStagedDeleteLn',
+  'GitSignsStagedChangedeleteLn',
+  'GitSignsStagedTopdeleteLn',
+  'GitSignsAddPreview',
+  'GitSignsDeletePreview',
+  'GitSignsCurrentLineBlame',
+  'GitSignsAddInline',
+  'GitSignsDeleteInline',
+  'GitSignsChangeInline',
+  'GitSignsAddLnInline',
+  'GitSignsChangeLnInline',
+  'GitSignsDeleteLnInline',
+  'GitSignsDeleteVirtLn',
+  'GitSignsDeleteVirtLnInLine',
+  'GitSignsVirtLnum',
+}
+
+-- Set the background color to transparent for the specified groups
+for _, group in ipairs(gitsigns_highlight_groups) do
+  vim.cmd('highlight ' .. group .. ' guibg=NONE ctermbg=NONE')
+end
+
 -- Set the background and border of the file browser to be transparent
 vim.cmd('highlight TelescopeNormal guibg=NONE ctermbg=NONE')
 vim.cmd('highlight TelescopePromptBorder guibg=NONE ctermbg=NONE')

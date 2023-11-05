@@ -1,4 +1,22 @@
 return {
+	--{
+	--	"nvim-tree/nvim-tree.lua",
+	--	requires = "nvim-tree/nvim-web-devicons",
+	--	config = function()
+	--		require("nvim-tree").setup({
+	--			sort_by = "case_sensitive",
+	--			view = {
+	--				width = 30,
+	--			},
+	--			renderer = {
+	--				group_empty = true,
+	--			},
+	--			filters = {
+	--				dotfiles = true,
+	--			},
+	--		})
+	--	end
+	--},
 	{
 		"rose-pine/neovim",
 		priority = 1000,
@@ -12,7 +30,7 @@ return {
 				dim_nc_background = true,
 				disable_background = true,
 				disable_float_background = true,
-				disable_italics = main,
+				disable_italics = false,
 
 				--- @usage string hex value or named color from rosepinetheme.com/palette
 				groups = {
@@ -47,7 +65,7 @@ return {
 				highlight_groups = {
 					-- ColorColumn = { bg = 'muted', blend = 10 },
 					-- 6E6A86 (comments, line numbers)
-					ColorColumn = { fg = 'muted', bg = 'muted' },
+					-- ColorColumn = { fg = 'muted', bg = 'muted' },
 					-- Blend colours against the "base" background
 					CursorLine = { bg = 'foam' },
 					StatusLine = { fg = 'love', bg = 'love', blend = 10 },
@@ -107,7 +125,7 @@ return {
 		'startup-nvim/startup.nvim',
 		config = function()
 			require('startup').setup({
-				theme = "startify",
+				theme = "evil",
 			})
 		end
 	},
