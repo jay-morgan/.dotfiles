@@ -17,9 +17,6 @@ bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 
-# open nvim commands 
-bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
-
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -30,6 +27,11 @@ ZSH_THEME="catpucci"
 #ZSH_THEME="theunraveler"
 #ZSH_THEME="eastwood"
 #ZSH_THEME="simple"
+
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
