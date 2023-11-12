@@ -65,9 +65,9 @@ return {
 				highlight_groups = {
 					-- ColorColumn = { bg = 'muted', blend = 10 },
 					--6E6A86 (comments, line numbers)
-					ColorColumn = { fg = 'muted', bg = 'muted' },
+					ColorColumn = { bg = 'muted', blend = 10 },
 					-- Blend colours against the "base" background
-					CursorLine = { bg = 'foam' },
+					CursorLine = { bg = 'muted', blend = 10 },
 					StatusLine = { fg = 'love', bg = 'love', blend = 10 },
 
 					-- By default each group adds to the existing config.

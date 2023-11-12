@@ -179,6 +179,8 @@ require('lazy').setup({
 
 -- START CUSTOM OPTIONS -
 
+vim.opt.cursorline = true
+
 -- Open help window in a vertical split to the right.
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = vim.api.nvim_create_augroup("help_window_right", {}),
