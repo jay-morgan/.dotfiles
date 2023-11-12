@@ -32,7 +32,7 @@ return {
 				disable_float_background = true,
 				disable_italics = false,
 
-				--- @usage string hex value or named color from rosepinetheme.com/palette
+				-- @usage string hex value or named color from rosepinetheme.com/palette
 				groups = {
 					background = 'base',
 					background_nc = '_experimental_nc',
@@ -57,15 +57,15 @@ return {
 						h6 = 'foam',
 					}
 					-- or set all headings at once
-					-- headings = 'subtle'
+					--	 headings = 'subtle'
 				},
 
 				-- Change specific vim highlight groups
 				-- https://github.com/rose-pine/neovim/wiki/Recipes
 				highlight_groups = {
 					-- ColorColumn = { bg = 'muted', blend = 10 },
-					-- 6E6A86 (comments, line numbers)
-					-- ColorColumn = { fg = 'muted', bg = 'muted' },
+					--6E6A86 (comments, line numbers)
+					ColorColumn = { fg = 'muted', bg = 'muted' },
 					-- Blend colours against the "base" background
 					CursorLine = { bg = 'foam' },
 					StatusLine = { fg = 'love', bg = 'love', blend = 10 },
@@ -129,7 +129,7 @@ return {
 			})
 		end
 	},
-	{ 'xiyaowong/transparent.nvim' }
+	-- { 'xiyaowong/transparent.nvim' }
 	-- { 'ThePrimeagen/git-worktree.nvim' },
 	--{
 	--'kristijanhusak/vim-dadbod-ui',
