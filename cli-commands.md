@@ -1,4 +1,21 @@
+### COMMANDS
+https://deepu.tech/rust-terminal-tools-linux-mac-windows-fish-zsh/
+kdash - open kubernetes moniter
+br - new way of navigating (ctrl + -> for preview) - https://github.com/Canop/broot
+fzf - fuzzy find in dir
+c - clear screen
+btm - system moniter
+topgrade - update all system componants
+**grep on multi-core steroids**
+ag --ts {searchterm} 
+rg {searchterm} (ripgrep)
+n (neovim)
+b/bat (better cat)
+rip (rm, rip -u can undo any delete!)
+z {locaiton} - cd alternative
+dust - disk usage
 ### COMMAND LINE
+
 
 C - b - open this document!
 C - i - open chtsh script
@@ -15,26 +32,7 @@ cht.sh - cheat sheet cli
 /tmp/ - error log dir - use cat for items in here. use bash to help log debug info
 
 ------------------------------------------------------------------------------------
-### Telescope
 
--- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  -- Pass additional configuration to telescope to change theme, layout, etc.
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 
 ### GITHUB COPILOT
 

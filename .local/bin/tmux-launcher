@@ -5,6 +5,9 @@ tmux_sessionizer="$HOME/personal/.dotfiles/.local/bin/tmux-sessionizer"
 
 # Function to decide which session to attach to
 attach_to_session() {
+    echo "Already in a tmux session. Detaching and reattaching..." >> /tmp/tmux-launcher.log
+    tmux detach-client -s "$TMUX"
+    
     sessions=$(tmux list-sessions -F "#S" 2>/dev/null || echo "")
     if [[ -z "$sessions" ]]; then
         session_count=0

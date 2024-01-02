@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+# Function to select and attach to a tmux session
+switch_tmux_session() {
+    sessions=$(tmux list-sessions -F "#S" 2>/dev/null || echo "")
+    if [[ -z "$sessions" ]]; then
+        echo "No existing sessions found."
+        exit 1
+    fi
+
+    selected_session=$(echo "$sessions" | /home/jaypopdev/.fzf/bin/fzf)
+    if [[ -n $selected_session ]]; then
+        tmux switch-client -t "$selected_session" > /dev/null
+    else
+        echo "No session selected. Exiting..."
+        exit 0
+    fi
+}
+
+# Check if inside a tmux session
+if [ -n "$TMUX" ]; then
+    switch_tmux_session
+    exit 0
+fi
+
+echo "Please run this script within a tmux session." >&2
+exit 1

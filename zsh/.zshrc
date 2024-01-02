@@ -3,6 +3,32 @@
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
+alias ls1='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
+
+alias c='clear'
+
+alias f='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
+
+alias fs='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
+
+
+alias ls2='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
+
+alias f2='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
+
+alias fs2='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=2 --tree --no-time --no-user'
+
+alias b='batcat'
+alias bat='batcat'
+alias cat='batcat'
+
+alias n='nvim'
+
+alias cp='xcp'
 
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
@@ -12,6 +38,9 @@ bindkey -s ^l "~/.local/bin/tmux-launcher\n"
 
 # tmux session starting
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
+
+#tmux session switching
+bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
 
 # open cli-command list
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
@@ -100,6 +129,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+	git
 	zsh-navigation-tools
 	tmux
 	rust	
@@ -162,3 +192,96 @@ export PATH="/home/jaypopdev/.turso:$PATH"
 
 # add starship prompt line
 eval "$(starship init zsh)"
+
+#echo "
+#      ███                                                   
+#     ░░░                                                    
+#     █████  ██████   █████ ████ ████████   ██████  ████████ 
+#    ░░███  ░░░░░███ ░░███ ░███ ░░███░░███ ███░░███░░███░░███
+#     ░███   ███████  ░███ ░███  ░███ ░███░███ ░███ ░███ ░███
+#     ░███  ███░░███  ░███ ░███  ░███ ░███░███ ░███ ░███ ░███
+#     ░███ ░░████████ ░░███████  ░███████ ░░██████  ░███████ 
+#     ░███  ░░░░░░░░   ░░░░░███  ░███░░░   ░░░░░░   ░███░░░  
+# ███ ░███             ███ ░███  ░███               ░███     
+#░░██████             ░░██████   █████              █████    
+# ░░░░░░               ░░░░░░   ░░░░░              ░░░░░     
+# "
+
+#ccat << 'EOF'
+# ____________________________________________________
+#|                                                    |
+#|      ██╗ █████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  |
+#|      ██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗ |
+#|      ██║███████║ ╚████╔╝ ██████╔╝██║   ██║██████╔╝ |
+#| ██   ██║██╔══██║  ╚██╔╝  ██╔═══╝ ██║   ██║██╔═══╝  |
+#| ╚█████╔╝██║  ██║   ██║   ██║     ╚██████╔╝██║      |
+#|  ╚════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚═╝      |
+#|____________________________________________________|
+#​
+#EOF
+
+ccat << 'EOF'
+​
+​
+      ██╗ █████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  
+      ██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗ 
+      ██║███████║ ╚████╔╝ ██████╔╝██║   ██║██████╔╝ 
+ ██   ██║██╔══██║  ╚██╔╝  ██╔═══╝ ██║   ██║██╔═══╝  
+ ╚█████╔╝██║  ██║   ██║   ██║     ╚██████╔╝██║      
+  ╚════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚═╝      
+​
+​
+EOF
+
+#cat << 'EOF'
+#   ..                 ..                                                 
+#  888>               @L           .d``                u.    .d``         
+#  "8P         u     9888i   .dL   @8Ne.   .u    ...ue888b   @8Ne.   .u   
+#   .       us888u.  `Y888k:*888.  %8888:u@88N   888R Y888r  %8888:u@88N  
+# u888u. .@88 "8888"   888E  888I   `888I  888.  888R I888>   `888I  888. 
+#`'888E  9888  9888    888E  888I    888I  888I  888R I888>    888I  888I 
+#  888E  9888  9888    888E  888I    888I  888I  888R I888>    888I  888I 
+#  888E  9888  9888    888E  888I  uW888L  888' u8888cJ888   uW888L  888' 
+#  888E  9888  9888   x888N><888' '*88888Nu88P   "*888*P"   '*88888Nu88P  
+#  888E  "888*""888"   "88"  888  ~ '88888F`       'Y"      ~ '88888F`    
+#  888E   ^Y"   ^Y'          88F     888 ^                     888 ^      
+#  888E                     98"      *8E                       *8E        
+#  888P                   ./"        '8>                       '8>        
+#.J88"                  ~`           "                         "         
+#EOF
+
+#cat << 'EOF'
+#  ___
+#________                                      
+#______(_)_____ _____  _______________________ 
+#_____  /_  __ `/_  / / /__  __ \  __ \__  __ \
+#____  / / /_/ /_  /_/ /__  /_/ / /_/ /_  /_/ /
+#___  /  \__,_/ _\__, / _  .___/\____/_  .___/ 
+#/___/          /____/  /_/           /_/      
+#
+#EOF
+
+#echo "
+#      ███                                                
+#     ░░░                                                 
+#     █████ ██████  █████ ████████████   ██████  ████████ 
+#    ░░███ ░░░░░███░░███ ░███░░███░░███ ███░░███░░███░░███
+#     ░███  ███████ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███
+#     ░███ ███░░███ ░███ ░███ ░███ ░███░███ ░███ ░███ ░███
+#     ░███░░████████░░███████ ░███████ ░░██████  ░███████ 
+#     ░███ ░░░░░░░░  ░░░░░███ ░███░░░   ░░░░░░   ░███░░░  
+# ███ ░███           ███ ░███ ░███               ░███     
+#░░██████           ░░██████  █████              █████    
+# ░░░░░░             ░░░░░░  ░░░░░              ░░░░░     
+#"
+
+
+
+fs #list files
+ccat << 'EOF'
+​
+EOF
+export FPATH="/home/jaypopdev/personal/eza/completions/zsh:$FPATH"
+eval "$(zoxide init zsh)"
+
+source /home/jaypopdev/.config/broot/launcher/bash/br
