@@ -33,9 +33,6 @@ alias cp='xcp'
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 
-# tmux session lauching (also run on alacritty open)
-bindkey -s ^l "~/.local/bin/tmux-launcher\n"
-
 # tmux session starting
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 
