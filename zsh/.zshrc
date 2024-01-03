@@ -1,10 +1,10 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
-export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.config/emacs/bin:$PATH"
-export PATH="/home/jaypopdev/.turso:$PATH" # adds turso
 
 alias f='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
@@ -19,25 +19,9 @@ alias cp='xcp'
 
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
-bindkey -s ^h "~/.local/bin/tmux-windowizer\n" 
+bindkey -s ^g "~/.local/bin/tmux-windowizer\n" 
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh 
-fpath+=${ZDOTDIR:-~}/.zsh_functions # adds zsh functions
-
-eval "$(zoxide init zsh)" # adds zoxide
-eval "$(starship init zsh)" # adds starship
-source /home/jaypopdev/.config/broot/launcher/bash/br # adds broot
-
-export BUN_INSTALL="$HOME/.bun" # sets bun install path
-export NVM_DIR="$HOME/.nvm" # adds nvm
-export PATH="$BUN_INSTALL/bin:$PATH" # adds bun
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # loads nvm bash_completion
-[ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun" # loads bun completions
-[[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null # configure opam
 
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
@@ -47,8 +31,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 
-ZSH_THEME="robbyrussell"
 #ZSH_THEME="af-magic"
+ZSH_THEME="robbyrussell"
 #ZSH_THEME="theunraveler"
 #ZSH_THEME="eastwood"
 #ZSH_THEME="simple"
@@ -124,7 +108,6 @@ plugins=(
 	zsh-autosuggestions
 	zsh-interactive-cd
 	colored-man-pages
-#	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -154,6 +137,27 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+[[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+export PATH="/home/jaypopdev/.turso:$PATH"
+
+eval "$(starship init zsh)"
+
+export FPATH="/home/jaypopdev/personal/eza/completions/zsh:$FPATH"
+eval "$(zoxide init zsh)"
+
+source /home/jaypopdev/.config/broot/launcher/bash/br
 
 # starting display for new shell
 ccat << 'EOF'
