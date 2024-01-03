@@ -6,10 +6,10 @@ export PATH=$PATH:$GOBIN
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.config/emacs/bin:$PATH"
 
-alias f='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
-alias fs='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
-alias f2='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
-alias fs2='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=2 --tree --no-time --no-user'
+alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
+alias fs2='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
+alias f='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
+alias f2='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=2 --tree --no-time --no-user'
 alias b='broot'
 alias bat='batcat'
 alias cat='batcat'
@@ -173,7 +173,7 @@ ccat << 'EOF'
 ​
 EOF
 
-fs #list files
+f #list files
 ccat << 'EOF'
 ​
 EOF
