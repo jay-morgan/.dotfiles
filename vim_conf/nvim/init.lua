@@ -202,6 +202,10 @@ vim.keymap.set("n", "<C-g>", function()
   vim.cmd("silent !tmux neww tmux-session-switcher")
 end, { noremap = true })
 
+vim.keymap.set("n", "<C-h>", function()
+  vim.cmd("silent !tmux neww tmux-windowizer")
+end, { noremap = true })
+
 -- for neoformat
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = vim.api.nvim_create_augroup("format_on_save", {}),
@@ -276,7 +280,7 @@ vim.g.copilot_assume_mapped = true
 -- harpoon
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-vim.keymap.set("n", "<C-h>", mark.add_file, { desc = "Add file to harpoon marks" })
+vim.keymap.set("n", "<C-p>", mark.add_file, { desc = "Add file to harpoon marks" })
 vim.keymap.set("n", "<leader>h", ui.toggle_quick_menu)
 vim.keymap.set("n", "<C-1>", function()
   ui.nav_file(1)

@@ -19,7 +19,7 @@ alias cp='xcp'
 
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
-bindkey -s ^g "~/.local/bin/tmux-windowizer\n" 
+bindkey -s ^h "~/.local/bin/tmux-windowizer\n" 
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
 
