@@ -19,6 +19,25 @@ return {
 	--},
 	--},
 	{ "sbdchd/neoformat" },
+	--{
+	--	"rebelot/kanagawa.nvim",
+	--	config = function()
+	--		require("kanagawa").setup({
+	--			terminalColors = true,
+	--			transparent = true,
+	--			theme = "dragon",
+	--		})
+	--	end,
+	--},
+	--{
+	--	"tjdevries/colorbuddy.vim",
+	--},
+	--{
+	--	"tjdevries/gruvbuddy.nvim",
+	--},
+	{
+		"github/copilot.vim",
+	},
 	{
 		"rose-pine/neovim",
 		priority = 1000,
@@ -84,9 +103,6 @@ return {
 		end,
 	},
 	{
-		"github/copilot.vim",
-	},
-	{
 		"ThePrimeagen/harpoon",
 		config = function()
 			require("harpoon").setup({
@@ -131,7 +147,7 @@ return {
 			})
 		end,
 	},
-	-- { 'xiyaowong/transparent.nvim' }
+	{ "xiyaowong/transparent.nvim" },
 	-- { 'ThePrimeagen/git-worktree.nvim' },
 	--{
 	--'kristijanhusak/vim-dadbod-ui',

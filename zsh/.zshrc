@@ -1,10 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export EDITOR='nvim'
+export DAGGER=$HOME/.local/bin/:$PATH
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 export PATH="$HOME/.emacs.d/bin:$PATH"
 export PATH="$HOME/.config/emacs/bin:$PATH"
+
+# example of multi alias config for nvim: alias nk='NVIM_APPNAME="kickstart.nvim" nvim'
 
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
 alias fs2='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=2 --tree'
@@ -16,12 +20,14 @@ alias cat='batcat'
 alias n='nvim'
 alias c='clear'
 alias cp='xcp'
+alias yb='yarn build'
 
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
-bindkey -s ^g "~/.local/bin/tmux-windowizer\n" 
+bindkey -s ^h "~/.local/bin/tmux-windowizer\n" 
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
+bindkey -s ^n "nvim .\n"
 
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
@@ -101,13 +107,15 @@ plugins=(
 	git
 	zsh-navigation-tools
 	tmux
-	rust	
+	rust
 	colorize
 	httpie
 	golang
 	zsh-autosuggestions
 	zsh-interactive-cd
 	colored-man-pages
+	kubectl
+	kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -160,20 +168,21 @@ eval "$(zoxide init zsh)"
 source /home/jaypopdev/.config/broot/launcher/bash/br
 
 # starting display for new shell
-ccat << 'EOF'
-​
-​
-      ██╗ █████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  
-      ██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗ 
-      ██║███████║ ╚████╔╝ ██████╔╝██║   ██║██████╔╝ 
- ██   ██║██╔══██║  ╚██╔╝  ██╔═══╝ ██║   ██║██╔═══╝  
- ╚█████╔╝██║  ██║   ██║   ██║     ╚██████╔╝██║      
-  ╚════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚═╝      
-​
-​
-EOF
+#ccat << 'EOF'
+#​
+#​
+#      ██╗ █████╗ ██╗   ██╗██████╗  ██████╗ ██████╗  
+#      ██║██╔══██╗╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗ 
+#      ██║███████║ ╚████╔╝ ██████╔╝██║   ██║██████╔╝ 
+# ██   ██║██╔══██║  ╚██╔╝  ██╔═══╝ ██║   ██║██╔═══╝  
+# ╚█████╔╝██║  ██║   ██║   ██║     ╚██████╔╝██║      
+#  ╚════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝      ╚═════╝ ╚═╝      
+#​
+#​
+#EOF
 
-f #list files
-ccat << 'EOF'
-​
-EOF
+#f #list files
+#ccat << 'EOF'
+#​
+#EOF
+export PATH=$PATH:/home/jaypopdev/.local/bin

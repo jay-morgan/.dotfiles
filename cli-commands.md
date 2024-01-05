@@ -1,4 +1,13 @@
 ### COMMANDS
+
+jq - use for all sorts
+https://jqlang.github.io/jq/download/
+https://www.youtube.com/watch?v=n8sOmEe2SDg
+
+
+history - show last 1000 commands
+ctrl + l - same as  clear
+
 https://deepu.tech/rust-terminal-tools-linux-mac-windows-fish-zsh/
 kdash - open kubernetes moniter
 br - new way of navigating (ctrl + -> for preview) - https://github.com/Canop/broot

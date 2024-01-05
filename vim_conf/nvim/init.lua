@@ -191,9 +191,13 @@ require("lazy").setup({
 -- See `:help vim.o`
 
 -- START CUSTOM OPTIONS -
-
+-- require("colorbuddy").colorscheme("gruvbuddy")
+--vim.cmd("colorscheme kanagawa")
 -- keybind for sessioniser in vim
 --nnoremap <silent> <C-f> :silent !tmux nnew tmux-sessioniser<CR>
+
+vim.api.nvim_set_keymap("i", "<C-y>", "<Cmd>lua vim.lsp.buf.references()<CR>", { noremap = true, silent = true })
+
 vim.keymap.set("n", "<C-f>", function()
   vim.cmd("silent !tmux neww tmux-sessionizer")
 end, { noremap = true })
@@ -215,23 +219,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd("TextChanged", {
-  group = vim.api.nvim_create_augroup("format_on_change", {}),
-  pattern = { "*.c", "*.cpp", "*.go", "*.lua", "*.py", "*.rs", "*.tsx", "*.ts", "*.js", "*.jsx" },
-  callback = function()
-    vim.cmd("Neoformat")
-  end,
-})
+--vim.api.nvim_create_autocmd("TextChanged", {
+--	group = vim.api.nvim_create_augroup("format_on_change", {}),
+--	pattern = { "*.c", "*.cpp", "*.go", "*.lua", "*.py", "*.rs", "*.tsx", "*.ts", "*.js", "*.jsx" },
+--	callback = function()
+--		vim.cmd("Neoformat")
+--	end,
+--})
 
-vim.api.nvim_create_autocmd("InsertLeave", {
-  group = vim.api.nvim_create_augroup("format_on_insert_exit", {}),
-  pattern = { "*.c", "*.cpp", "*.go", "*.lua", "*.py", "*.rs", "*.tsx", "*.ts", "*.js", "*.jsx" },
-  callback = function()
-    vim.cmd("Neoformat")
-  end,
-})
+--vim.api.nvim_create_autocmd("InsertLeave", {
+--group = vim.api.nvim_create_augroup("format_on_insert_exit", {}),
+--pattern = { "*.c", "*.cpp", "*.go", "*.lua", "*.py", "*.rs", "*.tsx", "*.ts", "*.js", "*.jsx" },
+--callback = function()
+--vim.cmd("Neoformat")
+--end,
+--})
 
-vim.opt.cursorline = true
+--vim.opt.cursorline = true
 
 -- Open help window in a vertical split to the right.
 vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -254,7 +258,7 @@ vim.opt.autoindent = true
 vim.opt.listchars:append({ eol = "↲" })
 vim.opt.list = true
 
---vim.cmd("set colorcolumn=120")
+-- vim.cmd("set colorcolumn=120")
 
 -- open file_browser with the path of the current buffer
 require("telescope").load_extension("file_browser")
@@ -295,7 +299,27 @@ vim.keymap.set("n", "<C-4>", function()
   ui.nav_file(4)
 end)
 
--- List of Gitsigns highlight groups to customize
+-- disable colorcolumn for help
+vim.cmd([[
+    augroup DisableColorColumnForHelp
+        autocmd!
+        autocmd FileType help set colorcolumn=
+    augroup END
+]])
+-- GIT WORKTREE @TODO: test
+-- set up git worktree in telescope
+--require("telescope").load_extension("git_worktree")
+-- Keybinding to -create a worktree
+-- vim.api.nvim_set_keymap('n', '<leader>wc', [[:lua require("git-worktree").create_worktree()<CR>]],
+--  { noremap = true, silent = true })
+-- Keybinding to switch to an existing worktree
+-- vim.api.nvim_set_keymap('n', '<leader>ws', [[:lua require("git-worktree").switch_worktree()<CR>]],
+--  { noremap = true, silent = true })
+-- Keybinding to delete an existing worktree
+--vim.api.nvim_set_keymap('n', '<leader>wd', [[:lua require("git-worktree").delete_worktree()<CR>]],
+-- { noremap = true, silent = true })
+
+--- List of Gitsigns highlight groups to customize
 local gitsigns_highlight_groups = {
   "GitSignsAdd",
   "GitSignsChange",
@@ -361,26 +385,6 @@ vim.cmd("highlight TelescopeMatching guibg=NONE ctermbg=NONE")
 -- Customize the background of the input field
 vim.cmd("highlight TelescopePrompt guibg=NONE ctermbg=NONE")
 vim.cmd("highlight TelescopePromptNormal guibg=NONE ctermbg=NONE")
-
--- disable colorcolumn for help
-vim.cmd([[
-    augroup DisableColorColumnForHelp
-        autocmd!
-        autocmd FileType help set colorcolumn=
-    augroup END
-]])
--- GIT WORKTREE @TODO: test
--- set up git worktree in telescope
---require("telescope").load_extension("git_worktree")
--- Keybinding to -create a worktree
--- vim.api.nvim_set_keymap('n', '<leader>wc', [[:lua require("git-worktree").create_worktree()<CR>]],
---  { noremap = true, silent = true })
--- Keybinding to switch to an existing worktree
--- vim.api.nvim_set_keymap('n', '<leader>ws', [[:lua require("git-worktree").switch_worktree()<CR>]],
---  { noremap = true, silent = true })
--- Keybinding to delete an existing worktree
---vim.api.nvim_set_keymap('n', '<leader>wd', [[:lua require("git-worktree").delete_worktree()<CR>]],
--- { noremap = true, silent = true })
 
 --END CUSTOM OPTIONS--
 
