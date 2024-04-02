@@ -25,14 +25,12 @@ config.scrollback_lines = 100000
 --config.font_size = 17
 
 config.color_scheme = "Mono Theme (terminal.sexy)"
-config.window_background_opacity = 0.8
-config.font_size = 11
+config.window_background_opacity = 0.9
+config.font_size = 13
 
 config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 --config.font = wezterm.font("BerkeleyMono Nerd Font Mono", { italic = false })
-config.freetype_load_target = "HorizontalLcd"
 
---config.font_size = 13
 --config.line_height = 1
 
 config.window_close_confirmation = "NeverPrompt"
@@ -41,5 +39,26 @@ config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-
 -- Set background to same color as neovim
 --config.colors = {}
 --config.colors.background = "#111111"
+
+-- required for nvim zen mode
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	local overrides = window:get_config_overrides() or {}
+	if name == "ZEN_MODE" then
+		local incremental = value:find("+")
+		local number_value = tonumber(value)
+		if incremental ~= nil then
+			while number_value > 0 do
+				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+				number_value = number_value - 1
+			end
+		elseif number_value < 0 then
+			window:perform_action(wezterm.action.ResetFontSize, pane)
+			overrides.font_size = nil
+		else
+			overrides.font_size = number_value
+		end
+	end
+	window:set_config_overrides(overrides)
+end)
 
 return config
