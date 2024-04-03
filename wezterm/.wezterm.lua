@@ -49,12 +49,15 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 		if incremental ~= nil then
 			while number_value > 0 do
 				window:perform_action(wezterm.action.IncreaseFontSize, pane)
+				overrides.window_background_opacity = config.window_background_opacity
 				number_value = number_value - 1
 			end
 		elseif number_value < 0 then
+			overrides.window_background_opacity = config.window_background_opacity
 			window:perform_action(wezterm.action.ResetFontSize, pane)
 			overrides.font_size = nil
 		else
+			overrides.window_background_opacity = 1
 			overrides.font_size = number_value
 		end
 	end
