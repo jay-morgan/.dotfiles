@@ -41,7 +41,7 @@ config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 config.line_height = 1
 
 config.window_close_confirmation = "NeverPrompt"
--- config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-launcher" }
+config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-launcher" }
 
 -- Set background to same color as neovim
 --config.colors = {}
