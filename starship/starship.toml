@@ -3,10 +3,14 @@ add_newline = false
 
 # A minimal left prompt
 format = """$directory$character"""
-#palette = "rosepine"
+palette = "melange"
 
 # move the rest of the prompt to the right
 #right_format = """$all"""
+
+
+# $lua\
+# $docker_context\
 right_format = """
 $username\
 $hostname\
@@ -17,7 +21,6 @@ $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$docker_context\
 $package\
 $cmake\
 $deno\
@@ -53,30 +56,52 @@ $shell\
 #truncation_length = 2
 #truncation_symbol = '…/'
 # disabled = true
+style = "bold fg:#E49B5D"
 
 # Replace the '❯' symbol in the prompt with '➜'
-#[character] # The name of the module we are configuring is 'character'
-#success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[➜](red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# disabled = true
 
 [azure]
 disabled = false
 format = 'on [$symbol($subscription)]($style) '
 symbol = '󰠅 '
-style = 'blue bold'
+style = 'bold blue'
 
 [aws]
+style = 'bold grey'
 format = 'on [$symbol($profile )(\($region\) )]($style)'
-style = 'bold blue'
 symbol = "  "
+
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_status]
+disabled = true
+
+[lua]
+symbol = '[ $version](bold purple)'
 
 [golang]
 format = '[ $version](bold cyan) '
 
 [kubernetes]
-symbol = '☸'
+symbol = '☸ '
 disabled = false
 detect_files = ['k8s', 'Dockerfile']
 detect_extensions = ['yaml']
+style = 'bold blue'
 format = '[$symbol$context( \($namespace\))]($style) '
 
 [palettes.rosepine]
@@ -88,3 +113,29 @@ blue = "#9ccfd8"
 magenta = "#c4a7e7"
 cyan = "#ebbcba"
 white = "#e0def4"
+
+[palettes.melange]
+bright_black="#867462"
+bright_blue="#A3A9CE"
+right_cyan="#89B3B6"
+bright_green="#85B695"
+bright_magenta="#CF9BC2"
+bright_red="#D47766"
+bright_white="#ECE1D7"
+bright_yellow="#EBC06D"
+dark_black="#292522"
+dark_blue="#273142"
+dark_cyan="#253333"
+dark_green="#233524"
+dark_magenta="#422741"
+dark_red="#7D2A2F"
+dark_white="#403A36"
+dark_yellow="#8B7449"
+black="#34302C"
+blue="#7F91B2"
+cyan="#7B9695"
+green="#78997A"
+magenta="#B380B0"
+red="#BD8183"
+white="#C1A78E"
+yellow="#E49B5D"
