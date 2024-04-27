@@ -33,7 +33,7 @@ config.scrollback_lines = 100000
 -- config.color_scheme = "Gotham (terminal.sexy)"
 -- config.color_scheme = "Grayscale (dark) (terminal.sexy)"
 -- config.window_background_opacity = 0.9
-config.font_size = 17
+config.font_size = 12
 
 config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 --config.font = wezterm.font("BerkeleyMono Nerd Font Mono", { italic = false })

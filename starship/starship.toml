@@ -8,101 +8,130 @@ palette = "melange"
 # move the rest of the prompt to the right
 #right_format = """$all"""
 
-
-# $lua\
-# $docker_context\
 right_format = """
 $username\
 $hostname\
-$kubernetes\
-$fossil_branch\
+$package\
 $git_branch\
 $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-$package\
-$cmake\
-$deno\
-$golang\
-$guix_shell\
-$java\
-$kotlin\
-$nim\
-$nodejs\
-$ocaml\
-$opa\
-$php\
-$python\
-$rust\
-$swift\
-$terraform\
-$zig\
-$buf\
 $nix_shell\
-$aws\
-$gcloud\
+$kubernetes\
+$nodejs\
+$php\
+$ocaml\
+$zig\
 $azure\
-$env_var\
-$sudo\
-$cmd_duration\
-$status\
-$os\
-$container\
-$shell\
+$aws\
 """
 
 [directory]
 #truncation_length = 2
 #truncation_symbol = '…/'
 # disabled = true
-style = "bold fg:#E49B5D"
+# style = "bold fg:#E49B5D"
+style = '#C1A78E'
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
-success_symbol = '[➜](green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
-error_symbol = '[➜](red)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+success_symbol = '[➜](#C1A78E)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[➜](#C1A78E)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 # disabled = true
 
 [azure]
 disabled = false
-format = 'on [$symbol($subscription)]($style) '
+format = '[$symbol($subscription)]($style) '
 symbol = '󰠅 '
-style = 'bold blue'
+style = '#C1A78E'
 
 [aws]
-style = 'bold grey'
-format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = '#C1A78E'
+format = '[$symbol($profile )(\($region\) )]($style)'
 symbol = "  "
 
 [git_branch]
-disabled = true
+disabled = false
+style = '#C1A78E'
+format = '[$symbol($branch)]($style) '
 
 [git_commit]
 disabled = true
+style = '#C1A78E'
 
 [git_state]
 disabled = true
+style = '#C1A78E'
 
 [git_metrics]
 disabled = true
+style = '#C1A78E'
 
 [git_status]
 disabled = true
+style = '#C1A78E'
+
+[package]
+disabled = false
+format = '[󰏗 $version]($style) '
+style = '#C1A78E'
+display_private=true
+
+[php]
+format = '[ ($version)]($style)'
+style = '#C1A78E'
+
+[ocaml]
+format = '[ ($version )(\($switch_indicator$switch_name\) )]($style)'
+style = '#C1A78E'
+
+[zig]
+format = '[ ($version )]($style)'
+style = '#C1A78E'
+
+[nodejs]
+format = '[$symbol($version)]($style)'
+style = '#C1A78E'
 
 [lua]
-symbol = '[ $version](bold purple)'
+symbol = '[ $version](#C1A78E)'
 
 [golang]
-format = '[ $version](bold cyan) '
+format = '[ $version](#C1A78E) '
+
+[nix_shell]
+disabled = true
+impure_msg = '[impure shell](bold red)'
+pure_msg = '[pure shell](bold green)'
+unknown_msg = '[unknown shell](bold yellow)'
+format = '[ $state( \($name\))](bold blue) '
 
 [kubernetes]
 symbol = '☸ '
 disabled = false
-detect_files = ['k8s', 'Dockerfile']
 detect_extensions = ['yaml']
-style = 'bold blue'
+style = '#C1A78E'
 format = '[$symbol$context( \($namespace\))]($style) '
+# detect_files = [
+#     "*values.yaml",     # Matches any file that ends with -values.yaml
+#     "*deployment.yaml",  # Matches any file that includes deployment.yaml
+#     "*service.yaml",     # Matches any file that includes service.yaml
+#     "*ingress.yaml",     # Matches any file that includes ingress.yaml
+#     "*Chart.yaml",       # Matches any file that includes Chart.yaml
+#     "*configmap.yaml",   # Matches any file that includes configmap.yaml
+#     "*secrets.yaml",     # Matches any file that includes secrets.yaml
+#     "*persistentvolume.yaml",  # Matches any file that includes persistentvolume.yaml
+#     "*persistentvolumeclaim.yaml",  # Matches any file that includes persistentvolumeclaim.yaml
+#     "*namespace.yaml",   # Matches any file that includes namespace.yaml
+#     "*pvc.yaml"          # Matches any file that includes pvc.yaml
+# ]
+detect_folders = [
+    "k8s", "helm-charts"
+]
+contexts = [
+    { context_pattern = "production", symbol = "!!! PRODUCTION !!! ", style = "red bold" },
+]
 
 [palettes.rosepine]
 black = "#26233a"
