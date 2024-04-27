@@ -129,9 +129,6 @@ format = '[$symbol$context( \($namespace\))]($style) '
 detect_folders = [
     "k8s", "helm-charts"
 ]
-contexts = [
-    { context_pattern = "production", symbol = "!!! PRODUCTION !!! ", style = "red bold" },
-]
 
 [palettes.rosepine]
 black = "#26233a"
