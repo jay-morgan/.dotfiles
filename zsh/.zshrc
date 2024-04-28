@@ -8,12 +8,13 @@ export PATH="$HOME/.config/emacs/bin:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-  --color=fg:#d0d0d0,fg+:#ffffff,bg:#292522,bg+:#34302C
+  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#292522,bg+:#262626
   --color=hl:#C1A78E,hl+:#C1A78E,info:#C1A78E,marker:#C1A78E
   --color=prompt:#C1A78E,spinner:#C1A78E,pointer:#C1A78E,header:#C1A78E
-  --color=border:#C1A78E,label:#aeaeae,query:#d9d9d9
-  --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
-  --marker="->" --pointer="◆" --separator="─" --scrollbar="│"'
+  --color=border:#C1A78E,query:#d9d9d9
+  --border="none" --preview-window="border-rounded" --prompt="> "
+  --marker=">" --pointer="◆"
+  --info="default"'
 
 source ~/work/cst.sh
 
