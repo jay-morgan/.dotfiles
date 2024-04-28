@@ -27,7 +27,7 @@ alias c='clear'
 alias cp='xcp'
 alias yb='yarn build'
 
-bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
+bindkey -s ^x "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
 bindkey -s ^h "~/.local/bin/tmux-windowizer\n" 
 bindkey -s ^l "~/.local/bin/tmux-launcher\n" 
