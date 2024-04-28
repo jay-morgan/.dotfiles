@@ -29,7 +29,7 @@ config.window_padding = {
 
 config.window_close_confirmation = "NeverPrompt"
 
-config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-launcher" }
+-- config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-launcher" }
 
 -- required for nvim zen mode
 wezterm.on("user-var-changed", function(window, pane, name, value)
