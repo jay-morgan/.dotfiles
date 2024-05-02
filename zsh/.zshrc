@@ -21,17 +21,15 @@ export ZSH="$HOME/.oh-my-zsh"
 # export PATH="$HOME/.emacs.d/bin:$PATH"
 # export PATH="$HOME/.config/emacs/bin:$PATH"
 # export DAGGER=$HOME/.local/bin/:$PATH
-# export PATH=$PATH:/home/jaypopdev/.local/bin
 # [ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun"
 # export BUN_INSTALL="$HOME/.bun"
 # export PATH="$BUN_INSTALL/bin:$PATH"
 # export PATH="/home/jaypopdev/.turso:$PATH"
+export PATH=$PATH:/home/jaypopdev/.local/bin
 
-source $ZSH/oh-my-zsh.sh
 source ~/work/cst.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-
 # source /home/jaypopdev/.config/broot/launcher/bash/br
 # [[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
@@ -43,7 +41,6 @@ alias c='clear'
 alias cp='xcp'
 alias yi='yarn install'
 alias yb='yarn build'
-
 # alias b='broot'
 
 bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
@@ -64,7 +61,7 @@ plugins=(
 	kubectl
 	kube-ps1
 )
-
+source $ZSH/oh-my-zsh.sh
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
