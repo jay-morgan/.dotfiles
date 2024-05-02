@@ -1,12 +1,13 @@
+echo "Starting to source .zshrc"
+
 export EDITOR='nvim'
-export DAGGER=$HOME/.local/bin/:$PATH
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
-export PATH="$HOME/.emacs.d/bin:$PATH"
-export PATH="$HOME/.config/emacs/bin:$PATH"
-export ZSH="$HOME/.oh-my-zsh"
-
+export FPATH="/home/jaypopdev/personal/eza/completions/zsh:$FPATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#292522,bg+:#262626
   --color=hl:#C1A78E,hl+:#C1A78E,info:#C1A78E,marker:#C1A78E
@@ -15,31 +16,45 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --border="none" --preview-window="border-rounded" --prompt="> "
   --marker=">" --pointer="◆"
   --info="default"'
+export ZSH="$HOME/.oh-my-zsh"
 
+# export PATH="$HOME/.emacs.d/bin:$PATH"
+# export PATH="$HOME/.config/emacs/bin:$PATH"
+# export DAGGER=$HOME/.local/bin/:$PATH
+# export PATH=$PATH:/home/jaypopdev/.local/bin
+# [ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun"
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
+# export PATH="/home/jaypopdev/.turso:$PATH"
+
+source $ZSH/oh-my-zsh.sh
 source ~/work/cst.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+# source /home/jaypopdev/.config/broot/launcher/bash/br
+# [[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
 alias f='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
-alias b='broot'
 alias bat='batcat'
 alias n='nvim'
 alias c='clear'
 alias cp='xcp'
+alias yi='yarn install'
 alias yb='yarn build'
 
-bindkey -s ^x "~/.local/bin/tmux-sessionizer\n"
+# alias b='broot'
+
+bindkey -s ^f "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^g "~/.local/bin/tmux-session-switcher\n"
 bindkey -s ^h "~/.local/bin/tmux-windowizer\n" 
 bindkey -s ^l "~/.local/bin/tmux-launcher\n" 
-
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
 
 plugins=(
 	git
-	zsh-navigation-tools
-	tmux
-	rust
 	colorize
 	httpie
 	golang
@@ -50,27 +65,7 @@ plugins=(
 	kube-ps1
 )
 
-source $ZSH/oh-my-zsh.sh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-[ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun"
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-[[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-export PATH="/home/jaypopdev/.turso:$PATH"
-
 eval "$(starship init zsh)"
-
-export FPATH="/home/jaypopdev/personal/eza/completions/zsh:$FPATH"
 eval "$(zoxide init zsh)"
 
-source /home/jaypopdev/.config/broot/launcher/bash/br
-
-export PATH=$PATH:/home/jaypopdev/.local/bin
+echo "Finished sourcing .zshrc"
