@@ -4,7 +4,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.window_decorations = "None"
+config.window_decorations = "RESIZE"
 config.enable_tab_bar = false
 config.custom_block_glyphs = true
 config.scrollback_lines = 100000
@@ -18,7 +18,7 @@ config.scrollback_lines = 100000
 -- config.window_background_opacity = 0.9
 config.font_size = 12
 config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
-config.line_height = 1
+-- config.line_height = 1
 
 config.window_padding = {
 	left = "0.5%",
@@ -29,10 +29,6 @@ config.window_padding = {
 
 config.window_close_confirmation = "NeverPrompt"
 
--- config.default_prog = { "/bin/zsh", "-c", "~/personal/.dotfiles/.local/bin/tmux-launcher"}
--- config.default_prog = { "/bin/zsh", "-c", "source ~/.zshrc; tmux-launcher" }
-
--- required for nvim zen mode
 wezterm.on("user-var-changed", function(window, pane, name, value)
 	local overrides = window:get_config_overrides() or {}
 	if name == "ZEN_MODE" then
@@ -56,56 +52,21 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	window:set_config_overrides(overrides)
 end)
 
-local act = wezterm.action
+function get_appearance()
+	if wezterm.gui then
+		return wezterm.gui.get_appearance()
+	end
+	return "Dark"
+end
 
-config.keys = {
-	-- Create a new tab in the same domain as the current pane.
-	-- This is usually what you want.
-	{
-		key = "t",
-		mods = "SHIFT|ALT",
-		action = act.SpawnTab("CurrentPaneDomain"),
-	},
-	-- Create a new tab in the default domain
-	{ key = "t", mods = "SHIFT|ALT", action = act.SpawnTab("DefaultDomain") },
-	-- Create a tab in a named domain
-	{
-		key = "t",
-		mods = "SHIFT|ALT",
-		action = act.SpawnTab({
-			DomainName = "unix",
-		}),
-	},
-}
+function scheme_for_appearance(appearance)
+	if appearance:find("Dark") then
+		return wezterm.color.load_scheme("/home/jaypopdev/personal/.dotfiles/wezterm/melange_dark.toml")
+	else
+		return wezterm.color.load_scheme("/home/jaypopdev/personal/.dotfiles/wezterm/melange_light.toml")
+	end
+end
 
-config.keys = {
-	{ key = "n", mods = "SHIFT|CTRL", action = wezterm.action.SpawnWindow },
-}
-
-color_scheme = "Custom Color Scheme"
-
-config.colors = {
-	foreground = "#ECE1D7",
-	background = "#292522",
-	cursor_bg = "#ECE1D7",
-	cursor_fg = "#292522",
-	cursor_border = "#ECE1D7",
-	selection_fg = "#292522",
-	selection_bg = "#ECE1D7",
-
-	ansi = { "#34302C", "#BD8183", "#78997A", "#E49B5D", "#7F91B2", "#B380B0", "#7B9695", "#C1A78E" },
-	brights = { "#867462", "#D47766", "#85B695", "#EBC06D", "#A3A9CE", "#CF9BC2", "#89B3B6", "#ECE1D7" },
-
-	indexed = {
-		[16] = "#867462",
-		[17] = "#D47766",
-		[18] = "#85B695",
-		[19] = "#EBC06D",
-		[20] = "#A3A9CE",
-		[21] = "#CF9BC2",
-		[22] = "#89B3B6",
-		[23] = "#ECE1D7",
-	},
-}
+config.colors = scheme_for_appearance(get_appearance())
 
 return config
