@@ -21,10 +21,10 @@ config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 -- config.line_height = 1
 
 config.window_padding = {
-	left = "0.5%",
-	right = "0.5%",
-	top = "0.5%",
-	bottom = "0.5%",
+	left = "1%",
+	right = "1%",
+	top = "1%",
+	bottom = "1%",
 }
 
 config.window_close_confirmation = "NeverPrompt"
