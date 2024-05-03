@@ -16,7 +16,7 @@ config.scrollback_lines = 100000
 -- config.color_scheme = "Mono Theme (terminal.sexy)"
 
 -- config.window_background_opacity = 0.9
-config.font_size = 12
+config.font_size = 13
 config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 -- config.line_height = 1
 

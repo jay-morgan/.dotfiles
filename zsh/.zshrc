@@ -1,5 +1,3 @@
-echo "Starting to source .zshrc"
-
 export EDITOR='nvim'
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
@@ -17,7 +15,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --marker=">" --pointer="◆"
   --info="default"'
 export ZSH="$HOME/.oh-my-zsh"
-
+export PATH=$PATH:/home/jaypopdev/.local/bin
 # export PATH="$HOME/.emacs.d/bin:$PATH"
 # export PATH="$HOME/.config/emacs/bin:$PATH"
 # export DAGGER=$HOME/.local/bin/:$PATH
@@ -25,13 +23,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # export BUN_INSTALL="$HOME/.bun"
 # export PATH="$BUN_INSTALL/bin:$PATH"
 # export PATH="/home/jaypopdev/.turso:$PATH"
-export PATH=$PATH:/home/jaypopdev/.local/bin
-
-source ~/work/cst.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-# source /home/jaypopdev/.config/broot/launcher/bash/br
-# [[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
 alias f='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
@@ -62,7 +53,12 @@ plugins=(
 	kube-ps1
 )
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+source ~/work/cst.sh
+# source /home/jaypopdev/.config/broot/launcher/bash/br
+# [[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
-echo "Finished sourcing .zshrc"
