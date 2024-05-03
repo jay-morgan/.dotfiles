@@ -7,10 +7,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
-  --color=fg:#d0d0d0,fg+:#d0d0d0,bg:#292522,bg+:#34302C
+  --color=bg+:#34302C
   --color=hl:#C1A78E,hl+:#C1A78E,info:#C1A78E,marker:#C1A78E
   --color=prompt:#C1A78E,spinner:#C1A78E,pointer:#C1A78E,header:#C1A78E
-  --color=border:#C1A78E,query:#d9d9d9
+  --color=border:#C1A78E,query:#C1A78E
   --border="none" --preview-window="border-rounded" --prompt="> "
   --marker=">" --pointer="◆"
   --info="default"'
