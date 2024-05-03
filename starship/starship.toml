@@ -32,73 +32,73 @@ $aws\
 #truncation_symbol = '…/'
 # disabled = true
 # style = "bold fg:#E49B5D"
-style = '#A98A78'
+style = '#C1A78E'
 
 # Replace the '❯' symbol in the prompt with '➜'
 [character] # The name of the module we are configuring is 'character'
-# success_symbol = '[➜](#A98A78)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
-# error_symbol = '[➜](#A98A78)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# success_symbol = '[➜](#C1A78E)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# error_symbol = '[➜](#C1A78E)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 disabled = true
 
 [azure]
 disabled = false
 format = '[$symbol($subscription)]($style) '
 symbol = '󰠅 '
-style = '#A98A78'
+style = '#C1A78E'
 
 [aws]
-style = '#A98A78'
+style = '#C1A78E'
 format = '[$symbol($profile )(\($region\) )]($style)'
 symbol = "  "
 
 [git_branch]
 disabled = false
-style = '#A98A78'
+style = '#C1A78E'
 format = '[$symbol($branch)]($style) '
 
 [git_commit]
 disabled = true
-style = '#A98A78'
+style = '#C1A78E'
 
 [git_state]
 disabled = true
-style = '#A98A78'
+style = '#C1A78E'
 
 [git_metrics]
 disabled = true
-style = '#A98A78'
+style = '#C1A78E'
 
 [git_status]
 disabled = true
-style = '#A98A78'
+style = '#C1A78E'
 
 [package]
 disabled = false
 format = '[󰏗 $version]($style) '
-style = '#A98A78'
+style = '#C1A78E'
 display_private=true
 
 [php]
 format = '[ ($version)]($style)'
-style = '#A98A78'
+style = '#C1A78E'
 
 [ocaml]
 format = '[ ($version )(\($switch_indicator$switch_name\) )]($style)'
-style = '#A98A78'
+style = '#C1A78E'
 
 [zig]
 format = '[ ($version )]($style)'
-style = '#A98A78'
+style = '#C1A78E'
 
 [nodejs]
 format = '[$symbol($version)]($style)'
-style = '#A98A78'
+style = '#C1A78E'
 
 [lua]
-symbol = '[ $version](#A98A78)'
+symbol = '[ $version](#C1A78E)'
 
 [golang]
-format = '[ $version](#A98A78) '
+format = '[ $version](#C1A78E) '
 
 [nix_shell]
 disabled = true
@@ -111,7 +111,7 @@ format = '[ $state( \($name\))](bold blue) '
 symbol = '☸ '
 disabled = false
 detect_extensions = ['yaml']
-style = '#A98A78'
+style = '#C1A78E'
 format = '[$symbol$context( \($namespace\))]($style) '
 # detect_files = [
 #     "*values.yaml",     # Matches any file that ends with -values.yaml
@@ -163,5 +163,5 @@ cyan="#7B9695"
 green="#78997A"
 magenta="#B380B0"
 red="#BD8183"
-white="#A98A78"
+white="#C1A78E"
 yellow="#E49B5D"
