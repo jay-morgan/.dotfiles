@@ -12,7 +12,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=prompt:#C1A78E,spinner:#C1A78E,pointer:#C1A78E,header:#C1A78E
   --color=border:#C1A78E,query:#C1A78E
   --border="none" --preview-window="border-rounded" --prompt="> "
-  --marker=">" --pointer="◆"
+  --marker=">" --pointer=">"
   --info="default"'
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:/home/jaypopdev/.local/bin

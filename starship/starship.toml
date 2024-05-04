@@ -32,7 +32,7 @@ $aws\
 #truncation_symbol = '…/'
 # disabled = true
 # style = "bold fg:#E49B5D"
-style = '#C1A78E' #style = ''
+style = ''
 # style = '#A98A78'
 
 # Replace the '❯' symbol in the prompt with '➜'
@@ -45,55 +45,55 @@ disabled = true
 disabled = false
 format = '[$symbol($subscription)]($style) '
 symbol = '󰠅 '
-style = '#C1A78E' #style = ''
+style = ''
 
 [aws]
-style = '#C1A78E' #style = ''
+style = ''
 format = '[$symbol($profile )(\($region\) )]($style)'
 symbol = "  "
 
 [git_branch]
 disabled = false
-style = '#C1A78E' #style = ''
+style = ''
 format = '[$symbol($branch)]($style) '
 
 [git_commit]
 disabled = true
-style = '#C1A78E' #style = ''
+style = ''
 
 [git_state]
 disabled = true
-style = '#C1A78E' #style = ''
+style = ''
 
 [git_metrics]
 disabled = true
-style = '#C1A78E' #style = ''
+style = ''
 
 [git_status]
 disabled = true
-style = '#C1A78E' #style = ''
+style = ''
 
 [package]
 disabled = false
 format = '[󰏗 $version]($style) '
-style = '#C1A78E' #style = ''
+style = ''
 display_private=true
 
 [php]
 format = '[ ($version)]($style)'
-style = '#C1A78E' #style = ''
+style = ''
 
 [ocaml]
 format = '[ ($version )(\($switch_indicator$switch_name\) )]($style)'
-style = '#C1A78E' #style = ''
+style = ''
 
 [zig]
 format = '[ ($version )]($style)'
-style = '#C1A78E' #style = ''
+style = ''
 
 [nodejs]
 format = '[$symbol($version)]($style)'
-style = '#C1A78E' #style = ''
+style = ''
 
 [lua]
 symbol = '[ $version](#C1A78E)'
@@ -112,7 +112,7 @@ format = '[ $state( \($name\))](bold blue) '
 symbol = '☸ '
 disabled = false
 detect_extensions = ['yaml']
-style = '#C1A78E' #style = ''
+style = ''
 format = '[$symbol$context( \($namespace\))]($style) '
 # detect_files = [
 #     "*values.yaml",     # Matches any file that ends with -values.yaml
