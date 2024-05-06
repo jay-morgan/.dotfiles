@@ -41,6 +41,7 @@ bindkey -s ^v "~/.local/bin/tmux-windowizer\n"
 bindkey -s ^l "~/.local/bin/tmux-launcher\n" 
 bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
 bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
+bindkey -s ^n "nvim .\n"
 
 plugins=(
 	git
