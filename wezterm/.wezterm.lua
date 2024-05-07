@@ -12,14 +12,13 @@ config.font_size = 13
 config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
 config.line_height = 1
 config.window_close_confirmation = "NeverPrompt"
+local act = wezterm.action
 config.keys = {
   {
     key = 'f',
     mods = 'CTRL',
-    action = wezterm.action.Search {
-      Regex = '[a-f0-9]{6,}',
-    },
-  }
+    action = act.Search { CaseInSensitiveString = '' },
+  },
 }
 
 -- config.color_scheme = "rose-pine"
