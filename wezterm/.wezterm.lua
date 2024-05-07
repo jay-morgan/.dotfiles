@@ -8,19 +8,26 @@ config.window_decorations = "RESIZE"
 config.enable_tab_bar = false
 config.custom_block_glyphs = true
 config.scrollback_lines = 100000
+config.font_size = 13
+config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
+config.line_height = 1
+config.window_close_confirmation = "NeverPrompt"
+config.keys = {
+  {
+    key = 'f',
+    mods = 'CTRL',
+    action = wezterm.action.Search {
+      Regex = '[a-f0-9]{6,}',
+    },
+  }
+}
 
 -- config.color_scheme = "rose-pine"
 -- config.color_scheme = "Tokyo Night"
 -- config.color_scheme = "Marrakesh (dark) (terminal.sexy)"
 -- config.color_scheme = "Nord (base16)"
 -- config.color_scheme = "Mono Theme (terminal.sexy)"
-
 -- config.window_background_opacity = 0.9
-config.font_size = 13
-config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
-config.line_height = 1
-
-config.window_close_confirmation = "NeverPrompt"
 
 wezterm.on("user-var-changed", function(window, pane, name, value)
 	local overrides = window:get_config_overrides() or {}
