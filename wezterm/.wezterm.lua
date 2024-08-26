@@ -4,23 +4,23 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.warn_about_missing_glyphs = false
 config.window_decorations = "RESIZE"
-config.enable_tab_bar = false
 config.custom_block_glyphs = true
 config.scrollback_lines = 100000
-config.font_size = 13
-config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
-config.line_height = 1
+config.adjust_window_size_when_changing_font_size = false
 config.window_close_confirmation = "NeverPrompt"
 local act = wezterm.action
 config.keys = {
-  {
-    key = 'f',
-    mods = 'CTRL',
-    action = act.Search { CaseInSensitiveString = '' },
-  },
+	{
+		key = "f",
+		mods = "CTRL",
+		action = act.Search({ CaseInSensitiveString = "" }),
+	},
 }
 
+config.font_size = 12
+-- config.line_height = 1
 -- config.color_scheme = "rose-pine"
 -- config.color_scheme = "Tokyo Night"
 -- config.color_scheme = "Marrakesh (dark) (terminal.sexy)"
@@ -67,5 +67,26 @@ function scheme_for_appearance(appearance)
 end
 
 config.colors = scheme_for_appearance(get_appearance())
+
+config.use_fancy_tab_bar = false
+config.enable_scroll_bar = false
+config.window_padding = {
+	left = 0,
+	right = 0,
+	top = 0,
+	bottom = 0,
+}
+
+config.tab_bar_at_bottom = true
+config.freetype_load_target = "HorizontalLcd"
+
+-- Set background to same color as neovim
+-- config.colors = {}
+-- config.colors.background = "#111111"
+
+config.font = wezterm.font_with_fallback({
+	"BerkeleyMono Nerd Font Mono",
+	"nonicons",
+})
 
 return config
