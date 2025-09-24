@@ -1,0 +1,6 @@
+window-decoration = none
+font-size = 10
+font-family = "BerkeleyMono Nerd Font Mono"
+confirm-close-surface = false
+theme = carbonfox
+gtk-gsk-renderer = default

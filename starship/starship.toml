@@ -25,7 +25,15 @@ $ocaml\
 $zig\
 $azure\
 $aws\
+$time\
 """
+
+[time]
+disabled = true
+format = "[$time]($style) "
+time_format = "%T"  # This will give you the time in HH:MM:SS format
+utc_time_offset = "local"
+style = ''
 
 [directory]
 #truncation_length = 2
@@ -43,19 +51,19 @@ disabled = true
 
 [azure]
 disabled = false
-format = '[$symbol($subscription)]($style) '
+format = ' [$symbol ($subscription)]($style)'
 symbol = '󰠅 '
 style = ''
 
 [aws]
 style = ''
-format = '[$symbol($profile )(\($region\) )]($style)'
+format = ' [$symbol($profile )(\($region\))]($style)'
 symbol = "  "
 
 [git_branch]
 disabled = false
 style = ''
-format = '[$symbol($branch)]($style) '
+format = ' [$symbol($branch)]($style)'
 
 [git_commit]
 disabled = true
@@ -75,45 +83,45 @@ style = ''
 
 [package]
 disabled = false
-format = '[󰏗 $version]($style) '
+format = ' [󰏗 $version]($style)'
 style = ''
 display_private=true
 
 [php]
-format = '[ ($version)]($style)'
+format = ' [ ($version)]($style)'
 style = ''
 
 [ocaml]
-format = '[ ($version )(\($switch_indicator$switch_name\) )]($style)'
+format = ' [ ($version )(\($switch_indicator$switch_name\) )]($style)'
 style = ''
 
 [zig]
-format = '[ ($version )]($style)'
+format = ' [ ($version )]($style)'
 style = ''
 
 [nodejs]
-format = '[$symbol($version)]($style)'
+format = ' [$symbol($version)]($style)'
 style = ''
 
 [lua]
-symbol = '[ $version](#C1A78E)'
+symbol = ' [ $version](#C1A78E)'
 
 [golang]
-format = '[ $version](#C1A78E) '
+format = ' [ $version](#C1A78E)'
 
 [nix_shell]
 disabled = true
 impure_msg = '[impure shell](bold red)'
 pure_msg = '[pure shell](bold green)'
 unknown_msg = '[unknown shell](bold yellow)'
-format = '[ $state( \($name\))](bold blue) '
+format = ' [ $state( \($name\))](bold blue)'
 
 [kubernetes]
-symbol = '☸ '
+symbol = ' ☸  '
 disabled = false
 detect_extensions = ['yaml']
 style = ''
-format = '[$symbol$context( \($namespace\))]($style) '
+format = '[$symbol$context( \($namespace\))]($style)'
 # detect_files = [
 #     "*values.yaml",     # Matches any file that ends with -values.yaml
 #     "*deployment.yaml",  # Matches any file that includes deployment.yaml
