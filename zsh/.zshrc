@@ -1,4 +1,5 @@
 export EDITOR='nvim'
+export GITHUB_TOKEN=$(grep "npm.pkg.github.com.*_authToken" .npmrc | cut -d'=' -f2)
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN

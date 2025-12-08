@@ -17,6 +17,11 @@ config.keys = {
 		mods = "CTRL",
 		action = act.Search({ CaseInSensitiveString = "" }),
 	},
+	{
+		key = "Enter",
+		mods = "SHIFT",
+		action = wezterm.action({ SendString = "\x1b\r" }),
+	},
 }
 
 config.font_size = 12
