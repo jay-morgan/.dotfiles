@@ -1,13 +1,9 @@
 export EDITOR='nvim'
-export GITHUB_TOKEN=$(grep "npm.pkg.github.com.*_authToken" .npmrc | cut -d'=' -f2)
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
-export FPATH="/home/jaypopdev/personal/eza/completions/zsh:$FPATH"
-export PATH="${PATH:+${PATH}:}/home/jaypopdev/.fzf/bin"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export FPATH="/home/sovereign/personal/eza/completions/zsh:$FPATH"
+export PATH="${PATH:+${PATH}:}$HOME/.fzf/bin"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --color=bg+:#34302C
   --color=hl:#C1A78E,hl+:#C1A78E,info:#C1A78E,marker:#C1A78E
@@ -17,14 +13,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --marker=">" --pointer=">"
   --info="default"'
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=$PATH:/home/jaypopdev/.local/bin
-# export PATH="$HOME/.emacs.d/bin:$PATH"
-# export PATH="$HOME/.config/emacs/bin:$PATH"
-# export DAGGER=$HOME/.local/bin/:$PATH
-# [ -s "/home/jaypopdev/.bun/_bun" ] && source "/home/jaypopdev/.bun/_bun"
-# export BUN_INSTALL="$HOME/.bun"
-# export PATH="$BUN_INSTALL/bin:$PATH"
-# export PATH="/home/jaypopdev/.turso:$PATH"
+export PATH=$PATH:$HOME/.local/bin
 
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
 alias f='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
@@ -37,14 +26,12 @@ alias cp='xcp'
 alias yi='yarn install'
 alias yb='yarn build'
 alias yt='yarn test'
-# alias b='broot'
 
 bindkey -s ^z "~/.local/bin/tmux-sessionizer\n"
 bindkey -s ^x "~/.local/bin/tmux-session-switcher\n"
 bindkey -s ^v "~/.local/bin/tmux-windowizer\n"
 bindkey -s ^l "~/.local/bin/tmux-launcher\n"
-bindkey -s ^b "nvim ~/personal/.dotfiles/cli-commands.md\n"
-bindkey -s ^v "nvim ~/personal/vim_commands.md\n"
+bindkey -s ^b "nvim ~/git/.dotfiles/cli-commands.md\n"
 bindkey -s ^n "nvim .\n"
 
 plugins=(
@@ -58,35 +45,14 @@ plugins=(
 	kubectl
 	kube-ps1
 )
-source $ZSH/oh-my-zsh.sh
 fpath+=${ZDOTDIR:-~}/.zsh_functions
-source ~/work/cst.sh
-source /home/jaypopdev/.config/broot/launcher/bash/br
-[[ ! -r /home/jaypopdev/.opam/opam-init/init.zsh ]] || source /home/jaypopdev/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/jaypopdev/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jaypopdev/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/home/sovereign/google-cloud-sdk/path.zsh.inc' ]; then . '/home/sovereign/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/jaypopdev/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jaypopdev/google-cloud-sdk/completion.zsh.inc'; fi
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jaypopdev/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/jaypopdev/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jaypopdev/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/jaypopdev/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+if [ -f '/home/sovereign/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/sovereign/google-cloud-sdk/completion.zsh.inc'; fi
 
