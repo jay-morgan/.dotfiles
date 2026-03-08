@@ -1,5 +1,5 @@
 {
-  "promptDelete": true,
+  "promptDelete": false,
   "mobileToolbarCommands": [
     "editor:insert-wikilink",
     "editor:insert-embed",
@@ -41,5 +41,6 @@
   "deleteUnlinkedAttachments": "always",
   "trashOption": "local",
   "showInlineTitle": false,
-  "defaultViewMode": "preview"
+  "defaultViewMode": "preview",
+  "readableLineLength": true
 }

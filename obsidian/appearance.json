@@ -1,6 +1,6 @@
 {
   "interfaceFontFamily": "iA Writer Quattro V",
-  "textFontFamily": "iA Writer Quattro V",
+  "textFontFamily": "iA Writer Quattro V,iA Writer Duospace,iA Writer Duo S,iA Writer Duo V,iA Writer Quattro S",
   "monospaceFontFamily": "Geist Mono",
   "theme": "system",
   "cssTheme": "Minimal",
@@ -8,10 +8,11 @@
   "showViewHeader": true,
   "baseFontSizeAction": false,
   "enabledCssSnippets": [
-    "font-weight-light",
     "north-star-callout",
+    "omarchy-colours",
     "hide-window-buttons",
-    "omarchy-colours"
+    "hide-status-bar-items",
+    "font-weight-light"
   ],
   "baseFontSize": 13,
   "nativeMenus": false
