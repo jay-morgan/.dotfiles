@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Path to tmux-sessionizer
-tmux_sessionizer="$HOME/personal/.dotfiles/.local/bin/tmux-sessionizer"
+tmux_sessionizer="$HOME/.local/bin/tmux-sessionizer"
 
 # Function to decide which session to attach to
 attach_to_session() {
@@ -22,7 +22,7 @@ attach_to_session() {
         tmux attach
     else
         echo "Multiple sessions detected. Selecting a session..." >> /tmp/tmux-launcher.log
-        session_to_attach=$(echo "$sessions" | /home/jaypopdev/.fzf/bin/fzf)
+        session_to_attach=$(echo "$sessions" | fzf)
         if [[ -n $session_to_attach ]]; then
             tmux attach -t "$session_to_attach"
         else
