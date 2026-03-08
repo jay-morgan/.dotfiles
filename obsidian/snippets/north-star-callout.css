@@ -1,0 +1,4 @@
+.callout[data-callout="north-star"] {
+  --callout-color: 158, 158, 158;
+  --callout-icon: sparkle;
+}

@@ -1,0 +1,63 @@
+/* Omarchy colour scheme for Minimal theme
+   Auto-generated from batou theme */
+
+body.theme-dark, body.theme-light {
+  --bg1: #121212;
+  --bg2: #0e0e0e;
+  --bg3: rgba(56, 55, 53, 0.2);
+  --ui1: #1e1e1e;
+  --ui2: #2a2a2a;
+  --ui3: #383735;
+  --tx1: #a4a4a4;
+  --tx2: #8a8575;
+  --tx3: #605d5b;
+  --tx4: #C2BBB0;
+  --ax1: #605d5b;
+  --ax2: #74716f;
+  --ax3: #565351;
+  --hl1: rgba(96, 93, 91, 0.3);
+  --hl2: rgba(225, 158, 116, 0.3);
+  --sp1: #dbd9d3;
+
+  --color-red: #e19e74;
+  --color-orange: #984b1e;
+  --color-yellow: #c6c4b0;
+  --color-green: #a5a297;
+  --color-cyan: #C2BBB0;
+  --color-blue: #637380;
+  --color-purple: #8a8575;
+  --color-pink: #8f4445;
+
+  --color-red-rgb: 225, 158, 116;
+  --color-orange-rgb: 152, 75, 30;
+  --color-yellow-rgb: 198, 196, 176;
+  --color-green-rgb: 165, 162, 151;
+  --color-cyan-rgb: 194, 187, 176;
+  --color-blue-rgb: 99, 115, 128;
+  --color-purple-rgb: 138, 133, 117;
+  --color-pink-rgb: 143, 68, 69;
+
+  --background-primary: #121212;
+  --background-primary-alt: #121212;
+  --background-secondary: #121212;
+  --background-secondary-alt: #121212;
+  --titlebar-background: #121212;
+  --ribbon-background: #121212;
+  --background-modifier-hover: #1e1e1e;
+  --background-modifier-border: #383735;
+  --code-normal: #C2BBB0;
+
+}
+
+body.theme-dark .cm-header-1, body.theme-light .cm-header-1,
+body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: #e19e74; }
+body.theme-dark .cm-header-2, body.theme-light .cm-header-2,
+body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: #a5a297; }
+body.theme-dark .cm-header-3, body.theme-light .cm-header-3,
+body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: #c6c4b0; }
+body.theme-dark .cm-header-4, body.theme-light .cm-header-4,
+body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: #605d5b; }
+body.theme-dark .cm-header-5, body.theme-light .cm-header-5,
+body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: #8a8575; }
+body.theme-dark .cm-header-6, body.theme-light .cm-header-6,
+body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: #8a8575; }

@@ -1,0 +1,10 @@
+{
+  "hideTabBar": false,
+  "hideStatusBar": true,
+  "hideVault": true,
+  "hideScrollBars": true,
+  "hideSidebarToggle": false,
+  "hideTooltips": false,
+  "hideFileNavButtons": true,
+  "hideInstructions": true
+}

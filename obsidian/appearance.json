@@ -1,0 +1,18 @@
+{
+  "interfaceFontFamily": "iA Writer Quattro V",
+  "textFontFamily": "iA Writer Quattro V",
+  "monospaceFontFamily": "Geist Mono",
+  "theme": "system",
+  "cssTheme": "Minimal",
+  "showRibbon": true,
+  "showViewHeader": true,
+  "baseFontSizeAction": false,
+  "enabledCssSnippets": [
+    "font-weight-light",
+    "north-star-callout",
+    "hide-window-buttons",
+    "omarchy-colours"
+  ],
+  "baseFontSize": 13,
+  "nativeMenus": false
+}

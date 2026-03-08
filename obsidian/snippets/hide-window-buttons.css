@@ -1,0 +1,21 @@
+.titlebar-button-container {
+  display: none !important;
+}
+
+.titlebar-button-container.mod-right {
+  display: none !important;
+}
+
+/* Reclaim the space left by hidden buttons */
+.mod-root .workspace-tab-header-container {
+  padding-right: 0 !important;
+}
+
+.workspace-tab-header-spacer {
+  display: none !important;
+}
+
+body {
+  --titlebar-button-width: 0px !important;
+  --frame-right-space: 0px !important;
+}
