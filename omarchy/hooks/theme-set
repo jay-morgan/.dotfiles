@@ -1,0 +1,157 @@
+#!/bin/bash
+
+# Generate Obsidian colour snippet from current omarchy theme colors.toml
+
+COLORS="$HOME/.config/omarchy/current/theme/colors.toml"
+[[ -f "$COLORS" ]] || exit 0
+
+# Parse colors.toml
+get_color() { grep "^$1 " "$COLORS" | cut -d'"' -f2; }
+
+BG=$(get_color background)
+FG=$(get_color foreground)
+ACCENT=$(get_color accent)
+C1=$(get_color color1)
+C2=$(get_color color2)
+C3=$(get_color color3)
+C4=$(get_color color4)
+C5=$(get_color color5)
+C6=$(get_color color6)
+C7=$(get_color color7)
+C8=$(get_color color8)
+C9=$(get_color color9)
+C10=$(get_color color10)
+C11=$(get_color color11)
+
+# Convert hex to r,g,b
+hex_to_rgb() {
+  local hex="${1#\#}"
+  printf "%d, %d, %d" "0x${hex:0:2}" "0x${hex:2:2}" "0x${hex:4:2}"
+}
+
+# Darken a hex colour by reducing each channel
+darken() {
+  local hex="${1#\#}" amount="$2"
+  local r=$((0x${hex:0:2} - amount)) g=$((0x${hex:2:2} - amount)) b=$((0x${hex:4:2} - amount))
+  r=$((r < 0 ? 0 : r)); g=$((g < 0 ? 0 : g)); b=$((b < 0 ? 0 : b))
+  printf "#%02x%02x%02x" "$r" "$g" "$b"
+}
+
+# Lighten a hex colour
+lighten() {
+  local hex="${1#\#}" amount="$2"
+  local r=$((0x${hex:0:2} + amount)) g=$((0x${hex:2:2} + amount)) b=$((0x${hex:4:2} + amount))
+  r=$((r > 255 ? 255 : r)); g=$((g > 255 ? 255 : g)); b=$((b > 255 ? 255 : b))
+  printf "#%02x%02x%02x" "$r" "$g" "$b"
+}
+
+# Detect light vs dark theme by checking background luminance
+hex_luminance() {
+  local hex="${1#\#}"
+  local r=$((0x${hex:0:2})) g=$((0x${hex:2:2})) b=$((0x${hex:4:2}))
+  echo $(( (r * 299 + g * 587 + b * 114) / 1000 ))
+}
+
+LUMINANCE=$(hex_luminance "$BG")
+if (( LUMINANCE > 127 )); then
+  IS_LIGHT=true
+  UI1=$(darken "$BG" 8)
+  UI2=$(darken "$BG" 16)
+  BG2=$(darken "$BG" 4)
+else
+  IS_LIGHT=false
+  UI1=$(lighten "$BG" 12)
+  UI2=$(lighten "$BG" 24)
+  BG2=$(darken "$BG" 4)
+fi
+
+UI3="$C8"
+ACCENT_LIGHT=$(lighten "$ACCENT" 20)
+ACCENT_DARK=$(darken "$ACCENT" 10)
+
+# Pre-compute all RGB values
+RGB_C8=$(hex_to_rgb "$C8")
+RGB_ACCENT=$(hex_to_rgb "$ACCENT")
+RGB_C1=$(hex_to_rgb "$C1")
+RGB_C9=$(hex_to_rgb "$C9")
+RGB_C3=$(hex_to_rgb "$C3")
+RGB_C2=$(hex_to_rgb "$C2")
+RGB_C6=$(hex_to_rgb "$C6")
+RGB_C10=$(hex_to_rgb "$C10")
+RGB_C5=$(hex_to_rgb "$C5")
+RGB_C11=$(hex_to_rgb "$C11")
+
+THEME_NAME=$(cat "$HOME/.config/omarchy/current/theme.name" 2>/dev/null || echo "unknown")
+
+# Write to all Obsidian vaults
+jq -r '.vaults | values[].path' ~/.config/obsidian/obsidian.json 2>/dev/null | while read -r vault_path; do
+  SNIPPET_DIR="$vault_path/.obsidian/snippets"
+  [[ -d "$vault_path/.obsidian" ]] || continue
+  mkdir -p "$SNIPPET_DIR"
+
+  cat > "$SNIPPET_DIR/omarchy-colours.css" <<CSSEOF
+/* Omarchy colour scheme for Minimal theme
+   Auto-generated from ${THEME_NAME} theme */
+
+body.theme-dark, body.theme-light {
+  --bg1: ${BG};
+  --bg2: ${BG2};
+  --bg3: rgba(${RGB_C8}, 0.2);
+  --ui1: ${UI1};
+  --ui2: ${UI2};
+  --ui3: ${UI3};
+  --tx1: ${FG};
+  --tx2: ${C5};
+  --tx3: ${ACCENT};
+  --tx4: ${C6};
+  --ax1: ${ACCENT};
+  --ax2: ${ACCENT_LIGHT};
+  --ax3: ${ACCENT_DARK};
+  --hl1: rgba(${RGB_ACCENT}, 0.3);
+  --hl2: rgba(${RGB_C1}, 0.3);
+  --sp1: ${C7};
+
+  --color-red: ${C1};
+  --color-orange: ${C9};
+  --color-yellow: ${C3};
+  --color-green: ${C2};
+  --color-cyan: ${C6};
+  --color-blue: ${C10};
+  --color-purple: ${C5};
+  --color-pink: ${C11};
+
+  --color-red-rgb: ${RGB_C1};
+  --color-orange-rgb: ${RGB_C9};
+  --color-yellow-rgb: ${RGB_C3};
+  --color-green-rgb: ${RGB_C2};
+  --color-cyan-rgb: ${RGB_C6};
+  --color-blue-rgb: ${RGB_C10};
+  --color-purple-rgb: ${RGB_C5};
+  --color-pink-rgb: ${RGB_C11};
+
+  --background-primary: ${BG};
+  --background-primary-alt: ${BG};
+  --background-secondary: ${BG};
+  --background-secondary-alt: ${BG};
+  --titlebar-background: ${BG};
+  --ribbon-background: ${BG};
+  --background-modifier-hover: ${UI1};
+  --background-modifier-border: ${C8};
+  --code-normal: ${C6};
+
+}
+
+body.theme-dark .cm-header-1, body.theme-light .cm-header-1,
+body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: ${C1}; }
+body.theme-dark .cm-header-2, body.theme-light .cm-header-2,
+body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: ${C2}; }
+body.theme-dark .cm-header-3, body.theme-light .cm-header-3,
+body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: ${C3}; }
+body.theme-dark .cm-header-4, body.theme-light .cm-header-4,
+body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: ${C4}; }
+body.theme-dark .cm-header-5, body.theme-light .cm-header-5,
+body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: ${C5}; }
+body.theme-dark .cm-header-6, body.theme-light .cm-header-6,
+body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: ${C5}; }
+CSSEOF
+done
