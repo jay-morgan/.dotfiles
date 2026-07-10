@@ -1,4 +1,5 @@
 {
   "format": "DD-MM-YYYY",
-  "folder": "daily"
+  "folder": "ledger/chronicle",
+  "template": "armory/templates/daily-note"
 }

@@ -2,3 +2,11 @@
   --callout-color: 158, 158, 158;
   --callout-icon: sparkle;
 }
+
+.callout .callout-content {
+  padding-bottom: 0;
+}
+
+.callout .callout-content > :last-child {
+  margin-bottom: 0;
+}

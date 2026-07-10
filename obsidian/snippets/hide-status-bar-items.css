@@ -1,0 +1,18 @@
+/* Hide backlinks */
+.status-bar-item.plugin-backlink {
+  display: none;
+}
+
+/* Hide reading/editing mode toggle */
+.status-bar-item.plugin-editor-status {
+  display: none;
+}
+
+/* Show word/character count when hovering the status bar */
+.status-bar-item.plugin-word-count {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.status-bar:hover .status-bar-item.plugin-word-count {
+  opacity: 1;
+}

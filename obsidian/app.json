@@ -36,11 +36,14 @@
   "rightToLeft": false,
   "newFileLocation": "current",
   "openBehavior": "",
-  "attachmentFolderPath": "./",
+  "attachmentFolderPath": "ledger/inbox",
   "showUnsupportedFiles": true,
   "deleteUnlinkedAttachments": "always",
   "trashOption": "local",
   "showInlineTitle": false,
   "defaultViewMode": "preview",
-  "readableLineLength": true
+  "readableLineLength": true,
+  "userIgnoreFilters": [
+    "lyceum/books/tech/"
+  ]
 }

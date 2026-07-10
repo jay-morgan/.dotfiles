@@ -52,22 +52,21 @@
       "key": "E"
     }
   ],
-  "app:go-back": [
+  "obsidian-excalidraw-plugin:insert-link": [],
+  "workspace:undo-close-pane": [
     {
       "modifiers": [
         "Mod",
         "Shift"
       ],
-      "key": "ArrowLeft"
-    }
-  ],
-  "app:go-forward": [
+      "key": "T"
+    },
     {
       "modifiers": [
         "Mod",
         "Shift"
       ],
-      "key": "ArrowRight"
+      "key": "W"
     }
   ]
 }

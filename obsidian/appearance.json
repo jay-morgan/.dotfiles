@@ -11,8 +11,8 @@
     "north-star-callout",
     "omarchy-colours",
     "hide-window-buttons",
-    "hide-status-bar-items",
-    "font-weight-light"
+    "font-weight-light",
+    "hide-status-bar-items"
   ],
   "baseFontSize": 13,
   "nativeMenus": false
