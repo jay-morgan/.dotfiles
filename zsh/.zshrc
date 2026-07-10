@@ -50,6 +50,13 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
+# for JJ snapshots
+jjwatch() {
+  watchexec --workdir "${1:-.}" -e md,rs,py,js,ts,sh \
+    -- jj --ignore-working-copy status
+}
+
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/sovereign/google-cloud-sdk/path.zsh.inc' ]; then . '/home/sovereign/google-cloud-sdk/path.zsh.inc'; fi
 
