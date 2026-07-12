@@ -155,3 +155,21 @@ body.theme-dark .cm-header-6, body.theme-light .cm-header-6,
 body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: ${C5}; }
 CSSEOF
 done
+
+# Sync the Plymouth decrypt screen (and SDDM) with the theme colors.
+# omarchy-plymouth-set needs sudo and rebuilds the initramfs, so skip when
+# already in sync, and fall back to a notification when sudo can't prompt.
+PLYMOUTH_STATE="$HOME/.config/omarchy/.plymouth-sync-state"
+PLYMOUTH_LOGO="$HOME/.config/omarchy/current/theme/plymouth/logo.png"
+[[ -f "$PLYMOUTH_LOGO" ]] || PLYMOUTH_LOGO="/usr/share/plymouth/themes/omarchy/logo.png"
+
+PLYMOUTH_WANT="$THEME_NAME $BG $FG"
+if [[ "$PLYMOUTH_WANT" != "$(cat "$PLYMOUTH_STATE" 2>/dev/null)" ]]; then
+  if sudo -n true 2>/dev/null || [[ -t 0 ]]; then
+    omarchy-plymouth-set "$BG" "$FG" "$PLYMOUTH_LOGO" &&
+      echo "$PLYMOUTH_WANT" > "$PLYMOUTH_STATE"
+  else
+    notify-send "Omarchy theme" \
+      "Plymouth decrypt screen not synced (needs sudo). Run: omarchy plymouth set '$BG' '$FG' '$PLYMOUTH_LOGO'"
+  fi
+fi
