@@ -1,0 +1,176 @@
+#!/usr/bin/env bash
+# claude-resume-all - reopen every Claude Code session recorded by the
+# claude-session-registry hook, each in its own tmux window, running
+# `claude --resume <session-id>` in the session's original directory and with
+# its original config dir (personal ~/.claude or work ~/.claude-work).
+#
+# Run it after a reboot (or from tmux-resurrect's post-restore hook). Sessions
+# that are already running are skipped; entries whose transcript is gone are
+# pruned; entries older than --max-age days are skipped.
+#
+# Usage:
+#   claude-resume-all [--dry-run] [--list] [--max-age DAYS] [--only TEXT]
+#     --dry-run       print what would be launched, launch nothing
+#     --list          print the registry with resolved names and exit
+#     --max-age DAYS  ignore sessions not touched for this long (default 14)
+#     --only TEXT     only sessions whose name, cwd or id contains TEXT
+#
+# Window placement: the tmux session recorded at SessionStart, else one named
+# after the cwd basename (same convention as tmux-sessionizer). An existing
+# idle shell window with the session's name is reused, so windows restored by
+# tmux-resurrect are filled rather than duplicated.
+set -euo pipefail
+
+registry="${CLAUDE_SESSION_REGISTRY:-$HOME/.local/state/claude-sessions/registry.json}"
+dry_run=0
+list_only=0
+max_age_days=14
+only=""
+
+usage() {
+  sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'
+  exit 1
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run|-n) dry_run=1 ;;
+    --list|-l) list_only=1 ;;
+    --max-age) max_age_days="${2:?--max-age needs DAYS}"; shift ;;
+    --only) only="${2:?--only needs TEXT}"; shift ;;
+    -h|--help) usage ;;
+    *) printf 'unknown argument: %s\n' "$1" >&2; usage ;;
+  esac
+  shift
+done
+
+[[ -s "$registry" ]] || { printf 'no registry at %s\n' "$registry" >&2; exit 0; }
+
+# Session display name, best source first: the custom title written by
+# /rename or `claude -n`, the last title record in the transcript, the name
+# Claude Code derived at start, then the short id.
+resolve_name() {
+  local sid="$1" transcript="$2" hint="$3" name=""
+  local title_file
+  title_file="$(dirname "$transcript")/$sid/custom-title.json"
+  if [[ -f "$title_file" ]]; then
+    name="$(jq -r '.customTitle // empty' "$title_file" 2>/dev/null || true)"
+  fi
+  if [[ -z "$name" && -f "$transcript" ]]; then
+    name="$(grep -aE '"type":"(custom-title|ai-title)"' "$transcript" | tail -n1 \
+      | jq -r '.customTitle // .aiTitle // empty' 2>/dev/null || true)"
+  fi
+  [[ -n "$name" ]] || name="$hint"
+  [[ -n "$name" ]] || name="${sid:0:8}"
+  printf '%s' "$name"
+}
+
+# True when a claude process for this session id is currently running.
+is_live() {
+  local sid="$1" cfg="$2" f pid
+  cfg="${cfg:-$HOME/.claude}"
+  shopt -s nullglob
+  for f in "$cfg"/sessions/*.json; do
+    pid="$(jq -r --arg sid "$sid" 'select(.sessionId == $sid) | .pid // empty' "$f" 2>/dev/null || true)"
+    if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+age_days() {
+  local stamp="$1" then_s now
+  then_s="$(date -d "$stamp" +%s 2>/dev/null || echo 0)"
+  now="$(date +%s)"
+  printf '%s' $(( (now - then_s) / 86400 ))
+}
+
+# tmux window name: short, no characters that confuse tmux targets.
+window_name() {
+  printf '%s' "$1" | tr -c 'A-Za-z0-9._ -' '_' | cut -c1-24
+}
+
+# Print "session:window" of an idle shell window with this name, if any.
+find_idle_window() {
+  local session="$1" name="$2"
+  tmux list-windows -t "$session" -F $'#{window_name}\t#{pane_current_command}\t#{session_name}:#{window_index}' 2>/dev/null \
+    | awk -F'\t' -v n="$name" '$1 == n && ($2 == "bash" || $2 == "zsh" || $2 == "fish" || $2 == "sh") {print $3; exit}'
+}
+
+# True when some tmux pane was already started with a resume of this session.
+pane_resuming() {
+  local sid="$1"
+  tmux list-panes -a -F '#{pane_start_command}' 2>/dev/null | grep -qF -- "--resume $sid"
+}
+
+# The window runs claude directly (no interactive shell in between, so nothing
+# in .bashrc/.zshrc can swallow the command) and drops into a shell afterwards.
+launch() {
+  local sid="$1" cwd="$2" cfg="$3" tmux_session="$4" name="$5"
+  local wname target cmd wcmd
+  wname="$(window_name "$name")"
+  [[ -n "$tmux_session" ]] || tmux_session="$(basename "$cwd" | tr . _)"
+  if [[ -n "$cfg" ]]; then
+    printf -v cmd 'CLAUDE_CONFIG_DIR=%q claude --resume %q' "$cfg" "$sid"
+  else
+    printf -v cmd 'claude --resume %q' "$sid"
+  fi
+  wcmd="$cmd; exec ${SHELL:-/bin/bash}"
+  if (( dry_run )); then
+    printf 'would launch  %-24s  in %s (%s)  cwd=%s\n' "$wname" "$tmux_session" "${cfg:-personal}" "$cwd"
+    return 0
+  fi
+  if pane_resuming "$sid"; then
+    printf 'running       %-24s  (a tmux pane already resumes it)\n' "$wname"
+    return 0
+  fi
+  if ! tmux has-session -t "=$tmux_session" 2>/dev/null; then
+    target="$(tmux new-session -d -s "$tmux_session" -c "$cwd" -n "$wname" -P -F '#{session_name}:#{window_index}' "$wcmd")"
+  else
+    target="$(find_idle_window "=$tmux_session" "$wname")"
+    if [[ -n "$target" ]]; then
+      tmux respawn-pane -k -c "$cwd" -t "$target" "$wcmd"
+    else
+      target="$(tmux new-window -d -t "=$tmux_session:" -n "$wname" -c "$cwd" -P -F '#{session_name}:#{window_index}' "$wcmd")"
+    fi
+  fi
+  printf 'launched      %-24s  in %s\n' "$wname" "$target"
+}
+
+launched=0
+skipped=0
+while IFS=$'\x1f' read -r sid cwd cfg transcript hint tmux_session updated_at; do
+  if [[ -n "$transcript" && ! -f "$transcript" ]]; then
+    printf 'pruned        %s  (transcript missing)\n' "${sid:0:8}"
+    (( dry_run || list_only )) || CLAUDE_SESSION_REGISTRY="$registry" claude-session-registry prune >/dev/null 2>&1 || true
+    continue
+  fi
+  name="$(resolve_name "$sid" "$transcript" "$hint")"
+  if (( list_only )); then
+    printf '%s  %-28s  %-14s  %s\n' "${sid:0:8}" "$name" "${tmux_session:--}" "$cwd"
+    continue
+  fi
+  if [[ -n "$only" && "$name$cwd$sid" != *"$only"* ]]; then
+    skipped=$((skipped + 1))
+    continue
+  fi
+  if (( $(age_days "$updated_at") > max_age_days )); then
+    printf 'skipped       %-24s  (older than %s days)\n' "$(window_name "$name")" "$max_age_days"
+    skipped=$((skipped + 1))
+    continue
+  fi
+  if is_live "$sid" "$cfg"; then
+    printf 'running       %-24s  (already live)\n' "$(window_name "$name")"
+    skipped=$((skipped + 1))
+    continue
+  fi
+  launch "$sid" "$cwd" "$cfg" "$tmux_session" "$name"
+  launched=$((launched + 1))
+  (( dry_run )) || sleep 0.5
+done < <(jq -r '
+  to_entries | sort_by(.value.updated_at) | .[] | .value |
+  [.session_id, .cwd, .config_dir, .transcript_path, .name_hint, .tmux_session, .updated_at]
+  | map(. // "") | join("\u001f")' "$registry")
+
+(( list_only )) || printf '%d launched, %d skipped\n' "$launched" "$skipped"

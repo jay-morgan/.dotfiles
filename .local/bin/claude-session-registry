@@ -1,0 +1,230 @@
+#!/usr/bin/env bash
+# claude-session-registry - Claude Code SessionStart/SessionEnd hook.
+#
+# Keeps a durable list of interactive Claude Code sessions (id, cwd, config dir,
+# transcript, tmux window) so `claude-resume-all` can reopen every one of them
+# after a reboot. Wired from armory/claude/settings.json under
+# hooks.SessionStart and hooks.SessionEnd; the hook JSON payload arrives on stdin.
+#
+# Usage:
+#   claude-session-registry upsert   # SessionStart + Stop: add or refresh this session
+#   claude-session-registry remove   # SessionEnd: drop it on a deliberate exit,
+#                                    #   keep it on "other" (crash, SIGHUP, reboot)
+#   claude-session-registry list     # print the registry as a table
+#   claude-session-registry prune    # drop entries whose transcript no longer exists
+#
+# Registry file: $CLAUDE_SESSION_REGISTRY, default
+#   ~/.local/state/claude-sessions/registry.json  (JSON object keyed by session_id)
+#
+# Headless sessions (claude -p, timers, subagents) are ignored: only sessions
+# whose claude process has a TTY on stdin are recorded.
+set -Eeuo pipefail
+
+registry="${CLAUDE_SESSION_REGISTRY:-$HOME/.local/state/claude-sessions/registry.json}"
+# A broken hook must never block a session: log and exit clean.
+trap 'printf "claude-session-registry: failed at line %s\n" "$LINENO" >&2; exit 0' ERR
+registry_dir="$(dirname "$registry")"
+lock="$registry_dir/.lock"
+
+usage() {
+  sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'
+  exit 1
+}
+
+log() {
+  printf 'claude-session-registry: %s\n' "$*" >&2
+}
+
+ensure_registry() {
+  mkdir -p "$registry_dir"
+  if [[ -s "$registry" ]] && ! jq -e . "$registry" >/dev/null 2>&1; then
+    # Self-heal a corrupt registry instead of wedging every future hook.
+    mv "$registry" "$registry.corrupt.$(date +%s)"
+    log "registry was not valid JSON; moved aside and reset"
+  fi
+  [[ -s "$registry" ]] || printf '{}\n' >"$registry"
+}
+
+# Apply a jq filter to the registry atomically under an exclusive lock.
+# $1 = jq filter, remaining args are passed to jq (e.g. --argjson entry ...).
+update_registry() {
+  local filter="$1"
+  shift
+  ensure_registry
+  exec 9>"$lock"
+  flock -w 5 9 || {
+    log "could not lock $lock"
+    return 1
+  }
+  local tmp
+  tmp="$(mktemp "$registry_dir/.registry.XXXXXX")"
+  if jq "$@" "$filter" "$registry" >"$tmp"; then
+    mv "$tmp" "$registry"
+  else
+    rm -f "$tmp"
+    log "jq update failed"
+    return 1
+  fi
+}
+
+# Walk up from this hook process to the claude process that spawned it, found
+# by argv[0] (comm is unreliable: the bun runtime reports thread names).
+# Prints its pid, or nothing if no claude ancestor is visible.
+claude_ancestor_pid() {
+  local pid=$PPID argv0
+  while [[ "$pid" -gt 1 ]]; do
+    argv0="$(tr '\0' '\n' <"/proc/$pid/cmdline" 2>/dev/null | head -n1 || true)"
+    case "${argv0##*/}" in
+      claude) printf '%s' "$pid"; return 0 ;;
+    esac
+    pid="$(awk '{print $4}' "/proc/$pid/stat" 2>/dev/null || echo 0)"
+  done
+  return 1
+}
+
+# True when the claude process is an interactive TUI: not started with
+# -p/--print and reading its stdin from a terminal.
+is_interactive() {
+  local pid="$1" fd0 arg
+  while IFS= read -r -d '' arg; do
+    case "$arg" in
+      -p|--print|--output-format|--output-format=*) return 1 ;;
+    esac
+  done <"/proc/$pid/cmdline"
+  fd0="$(readlink "/proc/$pid/fd/0" 2>/dev/null || true)"
+  [[ "$fd0" == /dev/pts/* || "$fd0" == /dev/tty* ]]
+}
+
+# Session display name from Claude Code's own per-process record, if present.
+name_hint() {
+  local sid="$1" cfg="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+  shopt -s nullglob
+  local f name
+  for f in "$cfg"/sessions/*.json; do
+    name="$(jq -r --arg sid "$sid" 'select(.sessionId == $sid) | .name // empty' "$f" 2>/dev/null || true)"
+    if [[ -n "$name" ]]; then
+      printf '%s' "$name"
+      return 0
+    fi
+  done
+  return 0
+}
+
+# Optional trace for troubleshooting: CLAUDE_SESSION_REGISTRY_LOG=/path/to/log
+debug() {
+  [[ -n "${CLAUDE_SESSION_REGISTRY_LOG:-}" ]] || return 0
+  printf '%s %s\n' "$(date -u +%H:%M:%S)" "$*" >>"$CLAUDE_SESSION_REGISTRY_LOG"
+}
+
+cmd_upsert() {
+  local payload sid cwd transcript source agent_id
+  payload="$(cat)"
+  sid="$(jq -r '.session_id // empty' <<<"$payload")"
+  [[ -n "$sid" ]] || { log "no session_id in payload"; exit 0; }
+  agent_id="$(jq -r '.agent_id // empty' <<<"$payload")"
+  [[ -n "$agent_id" ]] && exit 0
+  cwd="$(jq -r '.cwd // empty' <<<"$payload")"
+  transcript="$(jq -r '.transcript_path // empty' <<<"$payload")"
+  source="$(jq -r '.source // empty' <<<"$payload")"
+
+  local pid=""
+  pid="$(claude_ancestor_pid || true)"
+  if [[ -n "$pid" ]] && ! is_interactive "$pid"; then
+    debug "upsert skip sid=${sid:0:8} pid=$pid (headless)"
+    exit 0
+  fi
+  debug "upsert sid=${sid:0:8} pid=$pid source=$source event=$(jq -r '.hook_event_name // ""' <<<"$payload")"
+
+  local tmux_session="" tmux_window_index="" tmux_window_name=""
+  if [[ -n "${TMUX:-}" && -n "${TMUX_PANE:-}" ]]; then
+    IFS=$'\t' read -r tmux_session tmux_window_index tmux_window_name < <(
+      tmux display-message -p -t "$TMUX_PANE" $'#{session_name}\t#{window_index}\t#{window_name}' 2>/dev/null || true
+    )
+  fi
+
+  local now entry
+  now="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  entry="$(jq -n \
+    --arg session_id "$sid" \
+    --arg cwd "$cwd" \
+    --arg transcript_path "$transcript" \
+    --arg config_dir "${CLAUDE_CONFIG_DIR:-}" \
+    --arg name_hint "$(name_hint "$sid")" \
+    --arg pid "$pid" \
+    --arg source "$source" \
+    --arg tmux_session "$tmux_session" \
+    --arg tmux_window_index "$tmux_window_index" \
+    --arg tmux_window_name "$tmux_window_name" \
+    --arg now "$now" \
+    '{session_id: $session_id, cwd: $cwd, transcript_path: $transcript_path,
+      config_dir: $config_dir, name_hint: $name_hint, pid: $pid,
+      last_source: $source, tmux_session: $tmux_session,
+      tmux_window_index: $tmux_window_index, tmux_window_name: $tmux_window_name,
+      updated_at: $now, ended_reason: ""}')"
+  # Empty fields never overwrite known ones (a Stop-hook refresh has no source;
+  # a session started outside tmux keeps the tmux window it was first seen in).
+  update_registry \
+    '.[$entry.session_id] = ((.[$entry.session_id] // {started_at: $entry.updated_at})
+       + ($entry | with_entries(select(.value != "")))
+       + {ended_reason: ""})' \
+    --argjson entry "$entry"
+}
+
+cmd_remove() {
+  local payload sid reason
+  payload="$(cat)"
+  sid="$(jq -r '.session_id // empty' <<<"$payload")"
+  [[ -n "$sid" ]] || exit 0
+  reason="$(jq -r '.reason // "other"' <<<"$payload")"
+  local pid=""
+  pid="$(claude_ancestor_pid || true)"
+  debug "remove sid=${sid:0:8} pid=$pid reason=$reason"
+  case "$reason" in
+    prompt_input_exit|logout|clear|resume)
+      update_registry 'del(.[$sid])' --arg sid "$sid"
+      ;;
+    *)
+      # Unclean end (crash, SIGHUP on reboot, kill): keep it so it gets resumed.
+      # Ignore it when a newer process already owns the session (Claude Code
+      # restarts itself in place, e.g. when switching to the fullscreen TUI).
+      update_registry \
+        'if has($sid) and ($pid == "" or (.[$sid].pid // "") == $pid)
+         then .[$sid].ended_reason = $reason else . end' \
+        --arg sid "$sid" --arg reason "$reason" --arg pid "$pid"
+      ;;
+  esac
+}
+
+cmd_list() {
+  ensure_registry
+  jq -r '
+    ["SESSION", "UPDATED", "TMUX", "NAME", "CWD"],
+    (to_entries[] | .value |
+      [ .session_id[0:8],
+        .updated_at,
+        (if (.tmux_session // "") == "" then "-" else .tmux_session + ":" + (.tmux_window_name // "") end),
+        (.name_hint // "-"),
+        (.cwd // "") ])
+    | @tsv' "$registry" | column -t -s $'\t'
+}
+
+cmd_prune() {
+  ensure_registry
+  local sid transcript removed=0
+  while IFS=$'\x1f' read -r sid transcript; do
+    if [[ -n "$transcript" && ! -f "$transcript" ]]; then
+      update_registry 'del(.[$sid])' --arg sid "$sid"
+      removed=$((removed + 1))
+      log "pruned ${sid:0:8} (transcript missing)"
+    fi
+  done < <(jq -r 'to_entries[] | [.key, (.value.transcript_path // "")] | join("\u001f")' "$registry")
+  log "pruned $removed entries"
+}
+
+case "${1:-}" in
+  upsert) cmd_upsert ;;
+  remove) cmd_remove ;;
+  list) cmd_list ;;
+  prune) cmd_prune ;;
+  *) usage ;;
+esac

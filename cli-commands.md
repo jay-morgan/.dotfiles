@@ -135,3 +135,10 @@ MOTION - anything that moves your cursor
 
 
 
+
+### CLAUDE CODE SESSIONS (survive reboots)
+claude-session-registry list   - sessions the SessionStart/Stop/SessionEnd hooks have recorded (~/.local/state/claude-sessions/registry.json)
+claude-resume-all --dry-run    - show which sessions would be reopened (tmux window per session, original cwd + account)
+claude-resume-all              - reopen them after a reboot; already-running ones are skipped, deliberate /exit removes them
+claude-resume-all --only S6-   - only sessions whose name/cwd/id match; --max-age 3 limits to the last 3 days
+claude -n NAME                 - name a session at start (/rename inside); names become the tmux window names on resume
