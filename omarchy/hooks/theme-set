@@ -173,3 +173,7 @@ if [[ "$PLYMOUTH_WANT" != "$(cat "$PLYMOUTH_STATE" 2>/dev/null)" ]]; then
       "Plymouth decrypt screen not synced (needs sudo). Run: omarchy plymouth set '$BG' '$FG' '$PLYMOUTH_LOGO'"
   fi
 fi
+
+# >>> omazed hook - do not edit >>>
+omazed set "$1"
+# <<< omazed hook - do not edit <<<

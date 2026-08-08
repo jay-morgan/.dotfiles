@@ -1,63 +1,63 @@
 /* Omarchy colour scheme for Minimal theme
-   Auto-generated from amekoji theme */
+   Auto-generated from solitude theme */
 
 body.theme-dark, body.theme-light {
-  --bg1: #232829;
-  --bg2: #1f2425;
-  --bg3: rgba(120, 133, 135, 0.2);
-  --ui1: #2f3435;
-  --ui2: #3b4041;
-  --ui3: #788587;
-  --tx1: #dcd6d6;
-  --tx2: #bea7b0;
-  --tx3: #85abbc;
-  --tx4: #98b3b3;
-  --ax1: #85abbc;
-  --ax2: #99bfd0;
-  --ax3: #7ba1b2;
-  --hl1: rgba(133, 171, 188, 0.3);
-  --hl2: rgba(179, 154, 152, 0.3);
-  --sp1: #d6dcdb;
+  --bg1: #101315;
+  --bg2: #0c0f11;
+  --bg3: rgba(75, 78, 85, 0.2);
+  --ui1: #1c1f21;
+  --ui2: #282b2d;
+  --ui3: #4b4e55;
+  --tx1: #cacccc;
+  --tx2: #aeaeae;
+  --tx3: #798186;
+  --tx4: #707070;
+  --ax1: #798186;
+  --ax2: #8d959a;
+  --ax3: #6f777c;
+  --hl1: rgba(121, 129, 134, 0.3);
+  --hl2: rgba(86, 93, 96, 0.3);
+  --sp1: #cbc2be;
 
-  --color-red: #b39a98;
-  --color-orange: #b39898;
-  --color-yellow: #93b3a6;
-  --color-green: #98b3a3;
-  --color-cyan: #98b3b3;
-  --color-blue: #98b3a3;
-  --color-purple: #bea7b0;
-  --color-pink: #c8dad3;
+  --color-red: #565d60;
+  --color-orange: #de6145;
+  --color-yellow: #d9dbdc;
+  --color-green: #9fa5a9;
+  --color-cyan: #707070;
+  --color-blue: #343d41;
+  --color-purple: #aeaeae;
+  --color-pink: #c9c2b4;
 
-  --color-red-rgb: 179, 154, 152;
-  --color-orange-rgb: 179, 152, 152;
-  --color-yellow-rgb: 147, 179, 166;
-  --color-green-rgb: 152, 179, 163;
-  --color-cyan-rgb: 152, 179, 179;
-  --color-blue-rgb: 152, 179, 163;
-  --color-purple-rgb: 190, 167, 176;
-  --color-pink-rgb: 200, 218, 211;
+  --color-red-rgb: 86, 93, 96;
+  --color-orange-rgb: 222, 97, 69;
+  --color-yellow-rgb: 217, 219, 220;
+  --color-green-rgb: 159, 165, 169;
+  --color-cyan-rgb: 112, 112, 112;
+  --color-blue-rgb: 52, 61, 65;
+  --color-purple-rgb: 174, 174, 174;
+  --color-pink-rgb: 201, 194, 180;
 
-  --background-primary: #232829;
-  --background-primary-alt: #232829;
-  --background-secondary: #232829;
-  --background-secondary-alt: #232829;
-  --titlebar-background: #232829;
-  --ribbon-background: #232829;
-  --background-modifier-hover: #2f3435;
-  --background-modifier-border: #788587;
-  --code-normal: #98b3b3;
+  --background-primary: #101315;
+  --background-primary-alt: #101315;
+  --background-secondary: #101315;
+  --background-secondary-alt: #101315;
+  --titlebar-background: #101315;
+  --ribbon-background: #101315;
+  --background-modifier-hover: #1c1f21;
+  --background-modifier-border: #4b4e55;
+  --code-normal: #707070;
 
 }
 
 body.theme-dark .cm-header-1, body.theme-light .cm-header-1,
-body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: #b39a98; }
+body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: #565d60; }
 body.theme-dark .cm-header-2, body.theme-light .cm-header-2,
-body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: #98b3a3; }
+body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: #9fa5a9; }
 body.theme-dark .cm-header-3, body.theme-light .cm-header-3,
-body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: #93b3a6; }
+body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: #d9dbdc; }
 body.theme-dark .cm-header-4, body.theme-light .cm-header-4,
-body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: #85abbc; }
+body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: #798186; }
 body.theme-dark .cm-header-5, body.theme-light .cm-header-5,
-body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: #bea7b0; }
+body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: #aeaeae; }
 body.theme-dark .cm-header-6, body.theme-light .cm-header-6,
-body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: #bea7b0; }
+body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: #aeaeae; }
