@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Desktop-launcher entry point: resume work Claude Code in the work monorepo.
+# Launchers do not inherit the interactive shell PATH, so set it explicitly.
+export PATH="$HOME/.local/bin:$PATH"
+cd "$HOME/Cortex/forge/projects/.work" || exit 1
+exec wclaude --resume "$@"

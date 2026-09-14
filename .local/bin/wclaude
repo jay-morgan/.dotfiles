@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Claude Code against the work account (separate config dir from personal).
+# Real script, not a shell alias, so it also works from .desktop launchers,
+# systemd units, cron, and any non-interactive `bash -c` context.
+# ANTHROPIC_MODEL pins work to Opus: it beats settings.json "model", which the
+# bind-mount service re-hardlinks from Cortex (personal default: fable) at boot.
+exec env CLAUDE_CONFIG_DIR="$HOME/.claude-work" ANTHROPIC_MODEL="${WCLAUDE_MODEL:-opus}" claude "$@"
