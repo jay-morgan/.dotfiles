@@ -123,7 +123,7 @@ launch() {
   fi
   if pane_resuming "$sid"; then
     printf 'running       %-24s  (a tmux pane already resumes it)\n' "$wname"
-    return 0
+    return 1
   fi
   if ! tmux has-session -t "=$tmux_session" 2>/dev/null; then
     target="$(tmux new-session -d -s "$tmux_session" -c "$cwd" -n "$wname" -P -F '#{session_name}:#{window_index}' "$wcmd")"
@@ -165,9 +165,12 @@ while IFS=$'\x1f' read -r sid cwd cfg transcript hint tmux_session updated_at; d
     skipped=$((skipped + 1))
     continue
   fi
-  launch "$sid" "$cwd" "$cfg" "$tmux_session" "$name"
-  launched=$((launched + 1))
-  (( dry_run )) || sleep 0.5
+  if launch "$sid" "$cwd" "$cfg" "$tmux_session" "$name"; then
+    launched=$((launched + 1))
+    (( dry_run )) || sleep 0.5
+  else
+    skipped=$((skipped + 1))
+  fi
 done < <(jq -r '
   to_entries | sort_by(.value.updated_at) | .[] | .value |
   [.session_id, .cwd, .config_dir, .transcript_path, .name_hint, .tmux_session, .updated_at]
