@@ -1,63 +1,63 @@
 /* Omarchy colour scheme for Minimal theme
-   Auto-generated from solitude theme */
+   Auto-generated from evergreen theme */
 
 body.theme-dark, body.theme-light {
-  --bg1: #101315;
-  --bg2: #0c0f11;
-  --bg3: rgba(75, 78, 85, 0.2);
-  --ui1: #1c1f21;
-  --ui2: #282b2d;
-  --ui3: #4b4e55;
-  --tx1: #cacccc;
-  --tx2: #aeaeae;
-  --tx3: #798186;
-  --tx4: #707070;
-  --ax1: #798186;
-  --ax2: #8d959a;
-  --ax3: #6f777c;
-  --hl1: rgba(121, 129, 134, 0.3);
-  --hl2: rgba(86, 93, 96, 0.3);
-  --sp1: #cbc2be;
+  --bg1: #101913;
+  --bg2: #0c150f;
+  --bg3: rgba(0, 0, 0, 0.2);
+  --ui1: #1c251f;
+  --ui2: #28312b;
+  --ui3: ;
+  --tx1: #a1af9c;
+  --tx2: ;
+  --tx3: #4a9a68;
+  --tx4: ;
+  --ax1: #4a9a68;
+  --ax2: #5eae7c;
+  --ax3: #40905e;
+  --hl1: rgba(74, 154, 104, 0.3);
+  --hl2: rgba(0, 0, 0, 0.3);
+  --sp1: ;
 
-  --color-red: #565d60;
-  --color-orange: #de6145;
-  --color-yellow: #d9dbdc;
-  --color-green: #9fa5a9;
-  --color-cyan: #707070;
-  --color-blue: #343d41;
-  --color-purple: #aeaeae;
-  --color-pink: #c9c2b4;
+  --color-red: ;
+  --color-orange: ;
+  --color-yellow: ;
+  --color-green: ;
+  --color-cyan: ;
+  --color-blue: ;
+  --color-purple: ;
+  --color-pink: ;
 
-  --color-red-rgb: 86, 93, 96;
-  --color-orange-rgb: 222, 97, 69;
-  --color-yellow-rgb: 217, 219, 220;
-  --color-green-rgb: 159, 165, 169;
-  --color-cyan-rgb: 112, 112, 112;
-  --color-blue-rgb: 52, 61, 65;
-  --color-purple-rgb: 174, 174, 174;
-  --color-pink-rgb: 201, 194, 180;
+  --color-red-rgb: 0, 0, 0;
+  --color-orange-rgb: 0, 0, 0;
+  --color-yellow-rgb: 0, 0, 0;
+  --color-green-rgb: 0, 0, 0;
+  --color-cyan-rgb: 0, 0, 0;
+  --color-blue-rgb: 0, 0, 0;
+  --color-purple-rgb: 0, 0, 0;
+  --color-pink-rgb: 0, 0, 0;
 
-  --background-primary: #101315;
-  --background-primary-alt: #101315;
-  --background-secondary: #101315;
-  --background-secondary-alt: #101315;
-  --titlebar-background: #101315;
-  --ribbon-background: #101315;
-  --background-modifier-hover: #1c1f21;
-  --background-modifier-border: #4b4e55;
-  --code-normal: #707070;
+  --background-primary: #101913;
+  --background-primary-alt: #101913;
+  --background-secondary: #101913;
+  --background-secondary-alt: #101913;
+  --titlebar-background: #101913;
+  --ribbon-background: #101913;
+  --background-modifier-hover: #1c251f;
+  --background-modifier-border: ;
+  --code-normal: ;
 
 }
 
 body.theme-dark .cm-header-1, body.theme-light .cm-header-1,
-body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: #565d60; }
+body.theme-dark .markdown-rendered h1, body.theme-light .markdown-rendered h1 { color: ; }
 body.theme-dark .cm-header-2, body.theme-light .cm-header-2,
-body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: #9fa5a9; }
+body.theme-dark .markdown-rendered h2, body.theme-light .markdown-rendered h2 { color: ; }
 body.theme-dark .cm-header-3, body.theme-light .cm-header-3,
-body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: #d9dbdc; }
+body.theme-dark .markdown-rendered h3, body.theme-light .markdown-rendered h3 { color: ; }
 body.theme-dark .cm-header-4, body.theme-light .cm-header-4,
-body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: #798186; }
+body.theme-dark .markdown-rendered h4, body.theme-light .markdown-rendered h4 { color: ; }
 body.theme-dark .cm-header-5, body.theme-light .cm-header-5,
-body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: #aeaeae; }
+body.theme-dark .markdown-rendered h5, body.theme-light .markdown-rendered h5 { color: ; }
 body.theme-dark .cm-header-6, body.theme-light .cm-header-6,
-body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: #aeaeae; }
+body.theme-dark .markdown-rendered h6, body.theme-light .markdown-rendered h6 { color: ; }

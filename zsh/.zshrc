@@ -14,6 +14,9 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   --info="default"'
 export ZSH="$HOME/.oh-my-zsh"
 export PATH=$PATH:$HOME/.local/bin
+# Claude Code: skip the "Do you trust the files in this folder?" dialog in every directory.
+# Undocumented flag; the workspace trust check short-circuits to true when set (verified in 2.1.263).
+export CLAUDE_CODE_SANDBOXED=1
 
 alias fs='eza --git --icons="always" --long --hyperlink --classify --all --changed --no-permissions --time-style="+%d-%m-%Y %H:%M" --sort="type" --colour="always" --header --mounts --accessed --extended --git-repos --level=1 --tree'
 alias f='eza --git --icons="always" --long --hyperlink --classify --all --no-permissions --sort="type" --colour="always" --header --mounts --extended --git-repos --level=1 --tree --no-time --no-user'
@@ -49,6 +52,15 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+# bare `glow` browses the whole Cortex vault; args pass through untouched
+glow() {
+  if (( $# )); then
+    command glow "$@"
+  else
+    command glow "$HOME/Cortex"
+  fi
+}
 
 # for JJ snapshots
 jjwatch() {

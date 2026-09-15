@@ -28,7 +28,7 @@
     "pageSize": "Letter",
     "landscape": false,
     "margin": "0",
-    "downscalePercent": 75
+    "downscalePercent": 71
   },
   "alwaysUpdateLinks": true,
   "strictLineBreaks": true,

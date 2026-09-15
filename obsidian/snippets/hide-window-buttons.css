@@ -11,9 +11,8 @@
   padding-right: 0 !important;
 }
 
-.workspace-tab-header-spacer {
-  display: none !important;
-}
+/* Keep .workspace-tab-header-spacer visible: it is the flex-grow element
+   that pushes the right sidebar toggle to the right edge of the window */
 
 body {
   --titlebar-button-width: 0px !important;

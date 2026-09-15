@@ -3,7 +3,16 @@
 
 # All the default Omarchy aliases and functions
 # (don't mess with these directly, just overwrite them here!)
-source ~/.local/share/omarchy/default/bash/rc
+# /etc/omarchy.conf is written by omarchy-dev-link. When absent, force the
+# package default instead of preserving a stale inherited dev-link value before
+# we decide which rc file to source.
+if [[ -f /etc/omarchy.conf ]]; then
+  source /etc/omarchy.conf
+  export OMARCHY_PATH="${OMARCHY_PATH:-/usr/share/omarchy}"
+else
+  export OMARCHY_PATH=/usr/share/omarchy
+fi
+source "$OMARCHY_PATH/default/bash/rc"
 
 # Use these for time logging armory script
 # export JIRA_EMAIL="jay.morgan@i6.io"
@@ -70,6 +79,10 @@ alias grss='git restore --staged'
   # git --git-dir=.bare worktree remove "$1" && \
   # git --git-dir=.bare branch -d "$1"
 # }
+# Skip Claude Code's "Do you trust the files in this folder?" dialog in every directory,
+# for both accounts. Undocumented flag; the workspace trust check short-circuits to true
+# when it is set (verified in 2.1.263). All workspaces on this machine are our own.
+export CLAUDE_CODE_SANDBOXED=1
 # claude (dual account: personal default, work via CLAUDE_CONFIG_DIR)
 # Models: personal = fable (settings.json), work = opus. ANTHROPIC_MODEL beats the
 # settings.json "model" key, which the bind-mount service re-hardlinks from Cortex at

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# hclaude: Claude Code through the headroom context-compression proxy.
+# Trial started 2026-11-03, review due 2026-11-10 (cloud reminder). Personal account only:
+# the systemd timers and wclaude keep using plain `claude`.
+#   token mode (max compression), telemetry and beacon off, no Serena, no shared memory, no learn.
+# Caveat: behind a custom ANTHROPIC_BASE_URL Claude Code drops the 1M-context beta header, so
+# hclaude sessions are capped at 200k context. Compare with plain `claude` on /usage.
+export HEADROOM_MODE=token
+export HEADROOM_TELEMETRY=off HEADROOM_BEACON=off DO_NOT_TRACK=1
+export HEADROOM_CODE_MEMORY=none
+exec headroom wrap claude --code-memory none -- "$@"
